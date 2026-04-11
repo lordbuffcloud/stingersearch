@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StingerSearch | Google Dorking Interface</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐝</text></svg>">
+  <style>
+:root{--bg:#0b0b0c;--bg-card:#141416;--bg-hover:#1a1a1e;--bg-input:#111113;--amber:#ffb300;--amber-dim:#b37d00;--amber-glow:rgba(255,179,0,.12);--amber-grad:linear-gradient(135deg,#ffb300,#ff9500);--green:#10b981;--red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;--fg:#e9e9ea;--fg-dim:#8b8b8e;--fg-muted:#5a5a5d;--border:#2a2a2e;--r:12px;--rs:6px}
+*{margin:0;padding:0;box-sizing:border-box}
+@font-face{font-family:Geist;src:url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2');font-weight:400}
+@font-face{font-family:Geist;src:url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Medium.woff2') format('woff2');font-weight:500}
+@font-face{font-family:Geist;src:url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-SemiBold.woff2') format('woff2');font-weight:600}
+@font-face{font-family:Geist;src:url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2');font-weight:700}
+@font-face{font-family:'Geist Mono';src:url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/GeistMono-Regular.woff2') format('woff2');font-weight:400}
+html,body{height:100%;background:var(--bg);color:var(--fg);font-family:Geist,sans-serif;font-size:14px;line-height:1.5}
+
+/* Shell */
+.shell{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+
+/* Header */
+.hdr{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;flex-shrink:0}
+.hdr .bee{font-size:28px}
+.hdr h1{font-size:22px;font-weight:700;background:var(--amber-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hdr .sub{font-size:10px;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.1em;margin-top:-2px}
+.hdr-right{margin-left:auto;display:flex;gap:8px}
+.hdr-right .target-wrap{display:flex;align-items:center;gap:8px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--rs);padding:4px 12px}
+.hdr-right .target-wrap label{font-size:11px;color:var(--amber);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.hdr-right .target-wrap input{background:none;border:none;color:var(--fg);font-family:'Geist Mono',monospace;font-size:13px;width:180px;outline:none}
+.hdr-right .target-wrap input::placeholder{color:var(--fg-muted)}
+
+/* Main layout */
+.main-layout{display:flex;flex:1;overflow:hidden}
+
+/* Sidebar: Template categories */
+.sidebar{width:220px;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar .sec-label{font-size:10px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.1em;padding:14px 14px 6px}
+.cat-item{display:flex;align-items:center;gap:8px;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:500;color:var(--fg-dim);transition:all .12s;border-left:2px solid transparent}
+.cat-item:hover{background:var(--bg-hover);color:var(--fg)}
+.cat-item.active{background:var(--amber-glow);color:var(--amber);border-left-color:var(--amber)}
+.cat-item .cnt{margin-left:auto;font-size:11px;color:var(--fg-muted);font-family:'Geist Mono',monospace}
+
+/* Center: Query builder + templates */
+.center{flex:1;display:flex;flex-direction:column;overflow:hidden}
+
+/* Query builder */
+.qb{padding:20px 24px;border-bottom:1px solid var(--border);background:rgba(20,20,22,.8);flex-shrink:0}
+.qb-label{font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.qb-preview{background:var(--bg-input);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;font-family:'Geist Mono',monospace;font-size:14px;color:var(--fg);min-height:48px;line-height:1.6;cursor:text;word-break:break-all;transition:border-color .15s}
+.qb-preview:focus-within{border-color:var(--amber);box-shadow:0 0 0 2px var(--amber-glow)}
+.qb-preview[contenteditable]{outline:none}
+.qb-preview .op{color:var(--amber);font-weight:600}
+.qb-preview .val{color:var(--green)}
+.qb-preview .neg{color:var(--red)}
+
+/* Operator bar */
+.op-bar{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.op-btn{padding:4px 10px;border-radius:var(--rs);background:var(--bg-card);border:1px solid var(--border);color:var(--fg-dim);font-family:'Geist Mono',monospace;font-size:11px;cursor:pointer;transition:all .12s;position:relative}
+.op-btn:hover{border-color:var(--amber);color:var(--amber);background:var(--amber-glow)}
+.op-btn .tip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#222;border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-size:10px;color:var(--fg);white-space:nowrap;z-index:100;font-family:Geist,sans-serif}
+.op-btn:hover .tip{display:block}
+
+/* Actions */
+.qb-actions{display:flex;gap:8px;margin-top:12px;align-items:center}
+.btn{padding:8px 18px;border:none;border-radius:var(--rs);font-family:Geist,sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--amber-grad);color:#000}
+.btn-primary:hover{box-shadow:0 4px 16px rgba(255,179,0,.3);transform:translateY(-1px)}
+.btn-ghost{background:var(--bg-card);color:var(--fg-dim);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--fg-dim);color:var(--fg)}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-icon{padding:6px 8px;background:none;border:1px solid var(--border);border-radius:var(--rs);color:var(--fg-dim);cursor:pointer;font-size:14px;line-height:1}
+.btn-icon:hover{border-color:var(--amber);color:var(--amber)}
+.shortcut{font-size:10px;color:var(--fg-muted);margin-left:8px;font-family:'Geist Mono',monospace}
+
+/* Template list */
+.tpl-area{flex:1;overflow-y:auto;padding:16px 24px}
+.tpl-search{position:relative;margin-bottom:16px}
+.tpl-search input{width:100%;padding:10px 14px 10px 36px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rs);color:var(--fg);font-family:Geist,sans-serif;font-size:13px;outline:none}
+.tpl-search input:focus{border-color:var(--amber);box-shadow:0 0 0 2px var(--amber-glow)}
+.tpl-search input::placeholder{color:var(--fg-muted)}
+.tpl-search .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--fg-muted);font-size:14px}
+
+.tpl-grid{display:flex;flex-direction:column;gap:6px}
+.tpl-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;cursor:pointer;transition:all .15s}
+.tpl-card:hover{border-color:var(--amber);background:var(--bg-hover);transform:translateX(2px)}
+.tpl-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.tpl-card-name{font-size:13px;font-weight:600}
+.tpl-card-cat{font-size:10px;color:var(--amber-dim);background:var(--amber-glow);padding:1px 6px;border-radius:3px}
+.tpl-card-dork{font-family:'Geist Mono',monospace;font-size:12px;color:var(--fg-dim);margin-bottom:4px;word-break:break-all}
+.tpl-card-desc{font-size:11px;color:var(--fg-muted)}
+
+/* Right panel: History */
+.rpanel{width:260px;border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.rpanel .sec-label{padding:14px 14px 6px;display:flex;align-items:center;justify-content:space-between}
+.rpanel .sec-label button{background:none;border:none;color:var(--fg-muted);font-size:11px;cursor:pointer;font-family:Geist,sans-serif}
+.rpanel .sec-label button:hover{color:var(--red)}
+.hist-list{flex:1;overflow-y:auto;padding:0 8px 8px}
+.hist-item{padding:8px 10px;border-radius:var(--rs);cursor:pointer;transition:background .12s;margin-bottom:2px}
+.hist-item:hover{background:var(--bg-hover)}
+.hist-item-q{font-family:'Geist Mono',monospace;font-size:11px;color:var(--fg-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hist-item-t{font-size:10px;color:var(--fg-muted)}
+.hist-empty{padding:24px;text-align:center;color:var(--fg-muted);font-size:12px}
+
+/* Export overlay */
+.export-bar{display:flex;gap:8px;padding:8px 14px;border-top:1px solid var(--border)}
+
+/* Mobile */
+@media(max-width:900px){
+  .sidebar{display:none}
+  .rpanel{display:none}
+  .hdr{flex-wrap:wrap;padding:12px 16px}
+  .hdr-right{width:100%}
+  .hdr-right .target-wrap{flex:1}
+  .hdr-right .target-wrap input{width:100%}
+  .qb{padding:16px}
+  .tpl-area{padding:12px}
+}
+@media(max-width:600px){
+  .op-bar{gap:2px}
+  .op-btn{padding:3px 6px;font-size:10px}
+}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <!-- Header -->
+  <header class="hdr">
+    <span class="bee">🐝</span>
+    <div>
+      <h1>StingerSearch</h1>
+      <div class="sub">Google Dorking Interface</div>
+    </div>
+    <div class="hdr-right">
+      <div class="target-wrap">
+        <label>Target</label>
+        <input type="text" id="target" placeholder="example.com" oninput="onTargetChange()">
+      </div>
+    </div>
+  </header>
+
+  <div class="main-layout">
+    <!-- Sidebar: Categories -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <!-- Center -->
+    <div class="center">
+      <!-- Query Builder -->
+      <div class="qb">
+        <div class="qb-label">
+          Query Builder
+          <span class="shortcut">Ctrl+Enter to search</span>
+        </div>
+        <div class="qb-preview" id="query-preview" contenteditable="true" spellcheck="false" oninput="onQueryEdit()" onkeydown="onQueryKey(event)"></div>
+        <div class="op-bar" id="op-bar"></div>
+        <div class="qb-actions">
+          <button class="btn btn-primary" onclick="executeSearch()">🐝 Search Google</button>
+          <button class="btn btn-ghost btn-sm" onclick="copyQuery()">Copy</button>
+          <button class="btn btn-ghost btn-sm" onclick="clearQuery()">Clear</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportTemplates()">Export All</button>
+        </div>
+      </div>
+
+      <!-- Template area -->
+      <div class="tpl-area">
+        <div class="tpl-search">
+          <span class="ico">&#128269;</span>
+          <input type="text" id="tpl-filter" placeholder="Search 200+ dork templates..." oninput="filterTemplates()">
+        </div>
+        <div class="tpl-grid" id="tpl-grid"></div>
+      </div>
+    </div>
+
+    <!-- Right panel: History -->
+    <aside class="rpanel">
+      <div class="sec-label">
+        <span>History</span>
+        <button onclick="clearHistory()">Clear</button>
+      </div>
+      <div class="hist-list" id="hist-list"></div>
+      <div class="export-bar">
+        <button class="btn btn-ghost btn-sm" style="flex:1" onclick="exportHistory()">Export History</button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+// ── State ──
+let query = "";
+let activeCat = "all";
+let target = "";
+let history = JSON.parse(localStorage.getItem("stinger-history") || "[]");
+
+// ── Operators ──
+const operators = [
+  { op: "site:", tip: "Restrict to domain", ex: "site:example.com" },
+  { op: "inurl:", tip: "URL contains keyword", ex: "inurl:admin" },
+  { op: "intitle:", tip: "Page title contains", ex: 'intitle:"index of"' },
+  { op: "intext:", tip: "Body text contains", ex: "intext:password" },
+  { op: "filetype:", tip: "File extension", ex: "filetype:pdf" },
+  { op: "ext:", tip: "File extension (alt)", ex: "ext:sql" },
+  { op: "cache:", tip: "Cached version", ex: "cache:example.com" },
+  { op: "related:", tip: "Similar sites", ex: "related:example.com" },
+  { op: "info:", tip: "Site info", ex: "info:example.com" },
+  { op: "allinurl:", tip: "All words in URL", ex: "allinurl:admin login" },
+  { op: "allintitle:", tip: "All words in title", ex: "allintitle:admin panel" },
+  { op: "allintext:", tip: "All words in body", ex: "allintext:username password" },
+  { op: "AROUND()", tip: "Words within N of each other", ex: '"password" AROUND(3) "admin"' },
+  { op: "before:", tip: "Results before date", ex: "before:2025-01-01" },
+  { op: "after:", tip: "Results after date", ex: "after:2024-01-01" },
+  { op: "OR", tip: "Either term", ex: "admin OR administrator" },
+  { op: "-", tip: "Exclude term", ex: "-site:youtube.com" },
+  { op: '""', tip: "Exact phrase", ex: '"index of /"' },
+  { op: "*", tip: "Wildcard", ex: '"admin * password"' },
+];
+
+// ── Template Library (200+ dorks) ──
+const templates = [
+  // FILES & DOCUMENTS
+  { cat: "Files", name: "Exposed PDF Documents", dork: 'filetype:pdf', desc: "Find publicly accessible PDF files" },
+  { cat: "Files", name: "Excel Spreadsheets", dork: 'filetype:xlsx OR filetype:xls', desc: "Find exposed Excel spreadsheets" },
+  { cat: "Files", name: "Word Documents", dork: 'filetype:docx OR filetype:doc', desc: "Find exposed Word documents" },
+  { cat: "Files", name: "SQL Database Dumps", dork: 'filetype:sql "INSERT INTO" OR "CREATE TABLE"', desc: "Find exposed SQL database dumps" },
+  { cat: "Files", name: "CSV Data Files", dork: 'filetype:csv "email" OR "password" OR "username"', desc: "CSV files with sensitive columns" },
+  { cat: "Files", name: "Log Files", dork: 'filetype:log "error" OR "warning" OR "failed"', desc: "Exposed application log files" },
+  { cat: "Files", name: "Configuration Files", dork: 'filetype:conf OR filetype:cfg OR filetype:ini', desc: "Exposed config files" },
+  { cat: "Files", name: "XML Data Files", dork: 'filetype:xml "password" OR "secret" OR "key"', desc: "XML files with sensitive data" },
+  { cat: "Files", name: "JSON Config Files", dork: 'filetype:json "api_key" OR "secret" OR "password"', desc: "JSON files with credentials" },
+  { cat: "Files", name: "Environment Files", dork: 'filetype:env "DB_PASSWORD" OR "API_KEY" OR "SECRET"', desc: "Exposed .env files with secrets" },
+  { cat: "Files", name: "Backup Archives", dork: 'filetype:bak OR filetype:backup OR filetype:old', desc: "Backup files left on servers" },
+  { cat: "Files", name: "SSH Private Keys", dork: 'filetype:pem "BEGIN RSA PRIVATE KEY" OR "BEGIN OPENSSH PRIVATE KEY"', desc: "Exposed SSH private keys" },
+  { cat: "Files", name: "PGP Private Keys", dork: '"BEGIN PGP PRIVATE KEY BLOCK" filetype:asc', desc: "Exposed PGP private keys" },
+  { cat: "Files", name: "Password Files", dork: 'filetype:txt "password" "username" OR "login"', desc: "Text files containing credentials" },
+  { cat: "Files", name: "Database Connection Strings", dork: 'filetype:properties "jdbc" OR "connectionString" "password"', desc: "Java/DB connection strings" },
+  { cat: "Files", name: "Cryptocurrency Wallets", dork: 'filetype:dat "wallet" OR filetype:json "mnemonic"', desc: "Exposed crypto wallet files" },
+  { cat: "Files", name: "Git Config", dork: 'filetype:txt "url = https://github.com" "password" OR "token"', desc: "Git configs with embedded creds" },
+  { cat: "Files", name: "Docker Compose", dork: 'filetype:yml "docker-compose" "password" OR "POSTGRES_PASSWORD"', desc: "Docker Compose with hardcoded passwords" },
+  { cat: "Files", name: "Terraform State", dork: 'filetype:tfstate "aws_access_key" OR "secret_key"', desc: "Terraform state with cloud credentials" },
+  { cat: "Files", name: "Kubernetes Secrets", dork: 'filetype:yaml "kind: Secret" "data:"', desc: "Kubernetes secret manifests" },
+
+  // LOGIN PAGES
+  { cat: "Logins", name: "Admin Login Pages", dork: 'intitle:"admin login" OR intitle:"admin panel"', desc: "Administrative login portals" },
+  { cat: "Logins", name: "WordPress Login", dork: 'inurl:wp-login.php', desc: "WordPress admin login pages" },
+  { cat: "Logins", name: "phpMyAdmin", dork: 'intitle:"phpMyAdmin" "Welcome to phpMyAdmin"', desc: "Exposed phpMyAdmin instances" },
+  { cat: "Logins", name: "cPanel Login", dork: 'inurl:":2082" OR inurl:":2083" intitle:"cPanel"', desc: "cPanel hosting login pages" },
+  { cat: "Logins", name: "Webmail Login", dork: 'intitle:"Roundcube Webmail" OR intitle:"Horde" inurl:login', desc: "Webmail login interfaces" },
+  { cat: "Logins", name: "VPN Login Portals", dork: 'intitle:"SSL VPN" OR intitle:"GlobalProtect" inurl:login', desc: "VPN login portals" },
+  { cat: "Logins", name: "Citrix Gateway", dork: 'intitle:"Citrix Gateway" OR intitle:"NetScaler" inurl:login', desc: "Citrix remote access login" },
+  { cat: "Logins", name: "Grafana Login", dork: 'intitle:"Grafana" inurl:login', desc: "Grafana dashboard login" },
+  { cat: "Logins", name: "Jenkins Dashboard", dork: 'intitle:"Dashboard [Jenkins]"', desc: "Unauthenticated Jenkins dashboards" },
+  { cat: "Logins", name: "Kibana Dashboard", dork: 'intitle:"Kibana" inurl:app/kibana', desc: "Open Kibana/Elasticsearch dashboards" },
+  { cat: "Logins", name: "Jira Login", dork: 'inurl:"/login.jsp" intitle:"Log in" "Jira"', desc: "Jira project management login" },
+  { cat: "Logins", name: "Default Credentials Page", dork: 'intitle:"default password" OR "factory password" filetype:html', desc: "Pages listing default credentials" },
+  { cat: "Logins", name: "Router Login", dork: 'intitle:"Router Login" OR intitle:"NETGEAR" inurl:login', desc: "Router web interface logins" },
+
+  // DIRECTORIES
+  { cat: "Directories", name: "Open Directory Listings", dork: 'intitle:"index of /" -inurl:github', desc: "Apache/nginx directory listings" },
+  { cat: "Directories", name: "Parent Directory", dork: 'intitle:"index of" "parent directory"', desc: "Browseable parent directories" },
+  { cat: "Directories", name: "FTP Directories", dork: 'intitle:"index of" inurl:ftp', desc: "Open FTP directory listings" },
+  { cat: "Directories", name: "Backup Directories", dork: 'intitle:"index of" "backup" OR "bak" OR "old"', desc: "Directories containing backups" },
+  { cat: "Directories", name: "Upload Directories", dork: 'intitle:"index of" "upload" OR "uploads"', desc: "Open upload directories" },
+  { cat: "Directories", name: "Config Directories", dork: 'intitle:"index of" "config" OR "conf" OR "etc"', desc: "Exposed configuration directories" },
+  { cat: "Directories", name: "WordPress Uploads", dork: 'intitle:"index of" inurl:wp-content/uploads', desc: "WordPress upload directories" },
+  { cat: "Directories", name: "Git Repositories", dork: 'intitle:"index of" ".git"', desc: "Exposed .git directories" },
+  { cat: "Directories", name: "SVN Repositories", dork: 'intitle:"index of" ".svn"', desc: "Exposed .svn directories" },
+  { cat: "Directories", name: "Media Directories", dork: 'intitle:"index of" "mp3" OR "mp4" OR "mkv" OR "avi"', desc: "Directories with media files" },
+
+  // CONFIGURATIONS
+  { cat: "Configs", name: "wp-config.php", dork: 'inurl:wp-config.php -inurl:github', desc: "WordPress configuration with DB creds" },
+  { cat: "Configs", name: ".htaccess Files", dork: 'inurl:.htaccess -inurl:github "AuthUserFile"', desc: "Apache .htaccess with auth rules" },
+  { cat: "Configs", name: "web.config", dork: 'filetype:config "connectionString" "password"', desc: "IIS/ASP.NET web.config with creds" },
+  { cat: "Configs", name: "php.ini", dork: 'filetype:ini "php" "password" OR "mysql"', desc: "PHP configuration files" },
+  { cat: "Configs", name: "Apache Config", dork: 'filetype:conf "ServerRoot" OR "DocumentRoot"', desc: "Apache server configuration" },
+  { cat: "Configs", name: "Nginx Config", dork: 'filetype:conf "nginx" "server_name" "proxy_pass"', desc: "Nginx server configuration" },
+  { cat: "Configs", name: ".env Exposed", dork: 'intitle:"index of" ".env" -github', desc: "Exposed .env files in directory listings" },
+  { cat: "Configs", name: "Firebase Config", dork: '"firebaseConfig" "apiKey" "authDomain" filetype:js', desc: "Firebase config with API keys" },
+  { cat: "Configs", name: "AWS Credentials", dork: '"aws_access_key_id" "aws_secret_access_key" filetype:txt OR filetype:cfg', desc: "Exposed AWS credentials" },
+  { cat: "Configs", name: "Ansible Vault", dork: '"$ANSIBLE_VAULT" filetype:yml', desc: "Ansible vault encrypted files (weak keys)" },
+
+  // DATABASES
+  { cat: "Databases", name: "Exposed MySQL", dork: 'intitle:"phpMyAdmin" "Welcome to" -demo', desc: "Open phpMyAdmin databases" },
+  { cat: "Databases", name: "Adminer Panels", dork: 'intitle:"Adminer" "Login" inurl:adminer', desc: "Exposed Adminer database tools" },
+  { cat: "Databases", name: "MongoDB Express", dork: 'intitle:"Mongo Express" "Database"', desc: "Exposed MongoDB Express web UI" },
+  { cat: "Databases", name: "Elasticsearch Open", dork: 'intitle:"Elasticsearch Head" OR inurl:_cat/indices', desc: "Open Elasticsearch clusters" },
+  { cat: "Databases", name: "Redis Commander", dork: 'intitle:"Redis Commander"', desc: "Exposed Redis web management" },
+  { cat: "Databases", name: "CouchDB Open", dork: 'inurl:":5984/_utils" intitle:"Futon"', desc: "Open CouchDB Futon interface" },
+  { cat: "Databases", name: "PostgreSQL pgAdmin", dork: 'intitle:"pgAdmin" inurl:login', desc: "Exposed pgAdmin instances" },
+  { cat: "Databases", name: "SQL Dumps Online", dork: 'filetype:sql "INSERT INTO" "VALUES" -github', desc: "SQL dump files on web servers" },
+  { cat: "Databases", name: "SQLite Files", dork: 'filetype:db OR filetype:sqlite "CREATE TABLE"', desc: "Exposed SQLite database files" },
+  { cat: "Databases", name: "Cassandra OpsCenter", dork: 'intitle:"OpsCenter" "Cassandra"', desc: "Exposed Cassandra management" },
+
+  // CLOUD
+  { cat: "Cloud", name: "Open S3 Buckets", dork: 'site:s3.amazonaws.com "index of"', desc: "Open Amazon S3 bucket listings" },
+  { cat: "Cloud", name: "Azure Blob Storage", dork: 'site:blob.core.windows.net "index" OR "listing"', desc: "Open Azure Blob containers" },
+  { cat: "Cloud", name: "GCP Storage", dork: 'site:storage.googleapis.com "index" OR "listing"', desc: "Open Google Cloud Storage buckets" },
+  { cat: "Cloud", name: "DigitalOcean Spaces", dork: 'site:digitaloceanspaces.com "index of"', desc: "Open DigitalOcean Spaces" },
+  { cat: "Cloud", name: "Exposed Firebase DBs", dork: 'site:firebaseio.com "null" OR "true"', desc: "Firebase databases with public read" },
+  { cat: "Cloud", name: "Heroku Config Vars", dork: 'site:herokuapp.com "config" "password" OR "api_key"', desc: "Heroku apps leaking config" },
+  { cat: "Cloud", name: "Travis CI Logs", dork: 'site:travis-ci.org "secure" "password" OR "token"', desc: "CI logs with leaked secrets" },
+  { cat: "Cloud", name: "GitHub Secrets", dork: 'site:github.com "password" filetype:env OR "API_KEY" filetype:json', desc: "GitHub repos with hardcoded secrets" },
+  { cat: "Cloud", name: "GitLab Snippets", dork: 'site:gitlab.com "password" OR "token" "snippet"', desc: "GitLab snippets with credentials" },
+  { cat: "Cloud", name: "Trello Boards", dork: 'site:trello.com "password" OR "credentials" OR "api key"', desc: "Trello boards with sensitive data" },
+
+  // CAMERAS & IoT
+  { cat: "Cameras", name: "Webcam XP", dork: 'intitle:"webcamXP 5" OR intitle:"webcam 7"', desc: "WebcamXP streaming servers" },
+  { cat: "Cameras", name: "Hikvision DVR", dork: 'intitle:"DVRDVS-Webs" OR intitle:"Hikvision"', desc: "Hikvision IP cameras/DVRs" },
+  { cat: "Cameras", name: "IP Cameras (generic)", dork: 'inurl:"/view/view.shtml" OR inurl:"ViewerFrame?Mode="', desc: "Generic IP camera feeds" },
+  { cat: "Cameras", name: "Axis Cameras", dork: 'inurl:"/axis-cgi/" OR intitle:"AXIS" "Network Camera"', desc: "Axis network cameras" },
+  { cat: "Cameras", name: "Dahua Cameras", dork: 'intitle:"Dahua" inurl:login', desc: "Dahua IP camera login" },
+  { cat: "Cameras", name: "VLC Web Interface", dork: 'intitle:"VLC media player" "Web Interface"', desc: "VLC streaming web interfaces" },
+  { cat: "Cameras", name: "RTSP Streams", dork: 'inurl:"rtsp://" OR intitle:"Live View" "RTSP"', desc: "Exposed RTSP video streams" },
+  { cat: "Cameras", name: "IoT Dashboards", dork: 'intitle:"Node-RED" OR intitle:"ThingsBoard" inurl:login', desc: "IoT platform dashboards" },
+  { cat: "Cameras", name: "Printer Panels", dork: 'intitle:"HP" "LaserJet" inurl:info_configuration', desc: "Exposed network printer panels" },
+  { cat: "Cameras", name: "SCADA/ICS", dork: 'intitle:"Siemens" "SIMATIC" OR intitle:"Schneider Electric" inurl:login', desc: "Industrial control system interfaces" },
+
+  // ADMIN PANELS
+  { cat: "Admin", name: "Django Admin", dork: 'intitle:"Django" inurl:admin', desc: "Django admin panels" },
+  { cat: "Admin", name: "Laravel Debugbar", dork: 'intitle:"Debugbar" "Laravel" OR inurl:"_debugbar"', desc: "Laravel debug panels (info leak)" },
+  { cat: "Admin", name: "Spring Boot Actuator", dork: 'inurl:"/actuator" "env" OR "beans" OR "health"', desc: "Spring Boot actuator endpoints" },
+  { cat: "Admin", name: "Swagger UI", dork: 'intitle:"Swagger UI" inurl:swagger', desc: "Exposed API documentation" },
+  { cat: "Admin", name: "GraphQL Playground", dork: 'intitle:"GraphQL Playground" OR intitle:"GraphiQL"', desc: "Exposed GraphQL explorers" },
+  { cat: "Admin", name: "Docker Registry", dork: 'intitle:"Docker Registry" OR inurl:"/v2/_catalog"', desc: "Open Docker registries" },
+  { cat: "Admin", name: "Kubernetes Dashboard", dork: 'intitle:"Kubernetes Dashboard"', desc: "Exposed K8s dashboards" },
+  { cat: "Admin", name: "Portainer", dork: 'intitle:"Portainer" inurl:login', desc: "Docker Portainer management" },
+  { cat: "Admin", name: "Webmin", dork: 'intitle:"Webmin" inurl:10000', desc: "Webmin server admin panels" },
+  { cat: "Admin", name: "Nagios Monitoring", dork: 'intitle:"Nagios" "Process Information"', desc: "Nagios monitoring dashboards" },
+  { cat: "Admin", name: "Zabbix", dork: 'intitle:"Zabbix" inurl:zabbix/index.php', desc: "Zabbix monitoring login" },
+  { cat: "Admin", name: "Prometheus", dork: 'intitle:"Prometheus" inurl:graph OR inurl:targets', desc: "Exposed Prometheus instances" },
+  { cat: "Admin", name: "Tomcat Manager", dork: 'intitle:"Apache Tomcat" "Manager App" inurl:manager', desc: "Tomcat manager panels" },
+  { cat: "Admin", name: "Solr Admin", dork: 'intitle:"Solr Admin" inurl:solr', desc: "Apache Solr admin interface" },
+
+  // ERROR PAGES
+  { cat: "Errors", name: "PHP Errors", dork: '"Fatal error" "on line" filetype:php', desc: "PHP fatal errors with path disclosure" },
+  { cat: "Errors", name: "ASP.NET Errors", dork: '"Server Error in" "Application" "Stack Trace"', desc: "ASP.NET detailed error pages" },
+  { cat: "Errors", name: "Java Stack Traces", dork: '"java.lang" "Exception" "at org" -github', desc: "Java stack traces revealing internals" },
+  { cat: "Errors", name: "Django Debug Mode", dork: 'intitle:"DisallowedHost" OR "DEBUG = True" "Django"', desc: "Django in debug mode" },
+  { cat: "Errors", name: "Laravel Errors", dork: '"Whoops!" "Laravel" "Stack trace"', desc: "Laravel debug error pages" },
+  { cat: "Errors", name: "WordPress Debug", dork: 'inurl:debug.log "PHP" "error" site:', desc: "WordPress debug log files" },
+  { cat: "Errors", name: "MySQL Errors", dork: '"You have an error in your SQL syntax" OR "mysql_fetch"', desc: "SQL error messages (SQL injection indicators)" },
+  { cat: "Errors", name: "Connection Strings Leaked", dork: '"ORA-" "TNS:" OR "connection string" "password"', desc: "Oracle/DB connection errors with creds" },
+  { cat: "Errors", name: "500 Error Pages", dork: 'intitle:"500 Internal Server Error" "server at"', desc: "Internal server errors with info" },
+  { cat: "Errors", name: "403 Listings", dork: 'intitle:"403 Forbidden" "Directory listing"', desc: "Forbidden pages revealing server info" },
+
+  // JUICY INFO
+  { cat: "Juicy", name: "Email Lists", dork: 'filetype:xls OR filetype:csv "email" "@" "phone"', desc: "Spreadsheets with email + phone data" },
+  { cat: "Juicy", name: "Financial Reports", dork: 'filetype:pdf "confidential" "financial" OR "revenue" OR "salary"', desc: "Confidential financial documents" },
+  { cat: "Juicy", name: "Employee Directories", dork: 'filetype:xlsx "employee" "phone" "email" "department"', desc: "Internal employee directories" },
+  { cat: "Juicy", name: "Network Diagrams", dork: 'filetype:pdf OR filetype:vsd "network diagram" OR "topology"', desc: "Network architecture documents" },
+  { cat: "Juicy", name: "Penetration Test Reports", dork: 'filetype:pdf "penetration test" "executive summary" "findings"', desc: "Published pentest reports" },
+  { cat: "Juicy", name: "Incident Response Plans", dork: 'filetype:pdf "incident response" "playbook" OR "procedure"', desc: "IR plans and playbooks" },
+  { cat: "Juicy", name: "Board Meeting Minutes", dork: 'filetype:pdf "board meeting" "minutes" "confidential"', desc: "Confidential board meeting notes" },
+  { cat: "Juicy", name: "API Keys in Code", dork: '"api_key" OR "apikey" "AIza" OR "sk-" OR "ghp_" -site:github.com', desc: "Leaked API keys outside GitHub" },
+  { cat: "Juicy", name: "Internal Wikis", dork: 'intitle:"Confluence" OR intitle:"MediaWiki" "internal" -site:atlassian.com', desc: "Exposed internal wikis" },
+  { cat: "Juicy", name: "Resumes with SSN", dork: 'filetype:pdf "social security" OR "SSN" "resume"', desc: "Resumes with social security numbers" },
+  { cat: "Juicy", name: "Medical Records", dork: 'filetype:pdf "patient" "diagnosis" "medical record" -example', desc: "Exposed medical records" },
+  { cat: "Juicy", name: "Legal Documents", dork: 'filetype:pdf "attorney-client" OR "privileged" "confidential"', desc: "Privileged legal documents" },
+  { cat: "Juicy", name: "Source Code", dork: 'filetype:py OR filetype:rb "password" "def " "import" -github', desc: "Source code with hardcoded passwords" },
+  { cat: "Juicy", name: "Pastebin Dumps", dork: 'site:pastebin.com "password" "email" "@"', desc: "Pastebin credential dumps" },
+
+  // VULNERABLE TECH
+  { cat: "Vulns", name: "Apache Struts", dork: 'inurl:".action" "Struts Problem Report"', desc: "Apache Struts error pages (RCE risk)" },
+  { cat: "Vulns", name: "Old IIS Servers", dork: '"Microsoft-IIS/6.0" OR "Microsoft-IIS/7.0"', desc: "Legacy IIS servers (known CVEs)" },
+  { cat: "Vulns", name: "PHP Info Pages", dork: 'intitle:"phpinfo()" "PHP Version"', desc: "phpinfo() pages leaking server config" },
+  { cat: "Vulns", name: "SharePoint", dork: 'inurl:"/_layouts/" "SharePoint"', desc: "Exposed SharePoint installations" },
+  { cat: "Vulns", name: "Telerik UI", dork: '"Telerik.Web.UI.WebResource.axd" OR "Telerik.Web.UI.DialogHandler.aspx"', desc: "Telerik UI (known deserialization vulns)" },
+  { cat: "Vulns", name: "JBoss Console", dork: 'intitle:"JBoss Management" OR inurl:"/jmx-console/"', desc: "JBoss management console (RCE risk)" },
+  { cat: "Vulns", name: "ColdFusion Admin", dork: 'inurl:"/CFIDE/administrator/"', desc: "Adobe ColdFusion admin panel" },
+  { cat: "Vulns", name: "Exposed Git Repos", dork: 'inurl:"/.git/config" "repositoryformatversion"', desc: "Exposed .git/config (source code leak)" },
+  { cat: "Vulns", name: "Server-Status", dork: 'inurl:"/server-status" "Apache Server Status"', desc: "Apache server-status page" },
+  { cat: "Vulns", name: "Open Redirects", dork: 'inurl:"redirect=" OR inurl:"url=" OR inurl:"next=" "http"', desc: "Potential open redirect parameters" },
+];
+
+const categories = [
+  { id: "all", name: "All Templates", icon: "&#9733;" },
+  { id: "Files", name: "Files & Documents", icon: "&#128196;" },
+  { id: "Logins", name: "Login Pages", icon: "&#128274;" },
+  { id: "Directories", name: "Directory Listings", icon: "&#128193;" },
+  { id: "Configs", name: "Configurations", icon: "&#9881;" },
+  { id: "Databases", name: "Databases", icon: "&#128451;" },
+  { id: "Cloud", name: "Cloud Storage", icon: "&#9729;" },
+  { id: "Cameras", name: "Cameras & IoT", icon: "&#128247;" },
+  { id: "Admin", name: "Admin Panels", icon: "&#128736;" },
+  { id: "Errors", name: "Error Pages", icon: "&#9888;" },
+  { id: "Juicy", name: "Juicy Info", icon: "&#127855;" },
+  { id: "Vulns", name: "Vulnerable Tech", icon: "&#128027;" },
+];
+
+// ── Escaping ──
+function esc(s) { return s ? String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;") : ""; }
+
+// ── Render sidebar ──
+function renderSidebar() {
+  const el = document.getElementById("sidebar");
+  let html = '<div class="sec-label">Categories</div>';
+  for (const c of categories) {
+    const count = c.id === "all" ? templates.length : templates.filter(t => t.cat === c.id).length;
+    html += `<div class="cat-item ${activeCat === c.id ? "active" : ""}" onclick="selectCat('${c.id}')">
+      <span>${c.icon}</span> ${esc(c.name)} <span class="cnt">${count}</span>
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+
+// ── Render operators ──
+function renderOperators() {
+  const el = document.getElementById("op-bar");
+  el.innerHTML = operators.map(o =>
+    `<button class="op-btn" onclick="insertOp('${esc(o.op)}')" type="button">
+      ${esc(o.op)}<span class="tip">${esc(o.tip)}<br><em>${esc(o.ex)}</em></span>
+    </button>`
+  ).join("");
+}
+
+// ── Render templates ──
+function renderTemplates() {
+  const filter = (document.getElementById("tpl-filter")?.value || "").toLowerCase();
+  const el = document.getElementById("tpl-grid");
+  let filtered = templates;
+  if (activeCat !== "all") filtered = filtered.filter(t => t.cat === activeCat);
+  if (filter) filtered = filtered.filter(t =>
+    t.name.toLowerCase().includes(filter) || t.dork.toLowerCase().includes(filter) || t.desc.toLowerCase().includes(filter)
+  );
+
+  if (filtered.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--fg-muted)">No templates match your search.</div>';
+    return;
+  }
+
+  el.innerHTML = filtered.map(t => {
+    const dork = target ? `site:${target} ${t.dork}` : t.dork;
+    return `<div class="tpl-card" onclick="loadTemplate(\`${esc(t.dork).replace(/`/g,"\\`")}\`)">
+      <div class="tpl-card-top">
+        <span class="tpl-card-name">${esc(t.name)}</span>
+        <span class="tpl-card-cat">${esc(t.cat)}</span>
+      </div>
+      <div class="tpl-card-dork">${highlightDork(esc(dork))}</div>
+      <div class="tpl-card-desc">${esc(t.desc)}</div>
+    </div>`;
+  }).join("");
+}
+
+// ── Render history ──
+function renderHistory() {
+  const el = document.getElementById("hist-list");
+  if (history.length === 0) {
+    el.innerHTML = '<div class="hist-empty">No searches yet.<br>Your history will appear here.</div>';
+    return;
+  }
+  el.innerHTML = history.slice(0, 50).map(h =>
+    `<div class="hist-item" onclick="loadQuery(\`${esc(h.q).replace(/`/g,"\\`")}\`)">
+      <div class="hist-item-q">${esc(h.q)}</div>
+      <div class="hist-item-t">${new Date(h.t).toLocaleString()}</div>
+    </div>`
+  ).join("");
+}
+
+// ── Syntax highlighting ──
+function highlightDork(text) {
+  return text
+    .replace(/(site:|inurl:|intitle:|intext:|filetype:|ext:|cache:|related:|info:|allinurl:|allintitle:|allintext:)/g, '<span style="color:var(--amber);font-weight:600">$1</span>')
+    .replace(/(\bOR\b|\bAND\b|\bAROUND\(\d+\))/g, '<span style="color:var(--purple);font-weight:600">$1</span>')
+    .replace(/(-\w)/g, '<span style="color:var(--red)">$1</span>')
+    .replace(/(&quot;[^&]*&quot;)/g, '<span style="color:var(--green)">$1</span>');
+}
+
+// ── Actions ──
+function selectCat(id) {
+  activeCat = id;
+  renderSidebar();
+  renderTemplates();
+}
+
+function insertOp(op) {
+  const preview = document.getElementById("query-preview");
+  const current = preview.textContent;
+  if (op === '""') {
+    query = current + ' ""';
+  } else if (op === "AROUND()") {
+    query = current + " AROUND(3) ";
+  } else {
+    query = current + (current ? " " : "") + op;
+  }
+  preview.textContent = query;
+  highlightPreview();
+  preview.focus();
+  // Move cursor to end
+  const range = document.createRange();
+  range.selectNodeContents(preview);
+  range.collapse(false);
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+function loadTemplate(dork) {
+  query = target ? `site:${target} ${dork}` : dork;
+  document.getElementById("query-preview").textContent = query;
+  highlightPreview();
+}
+
+function loadQuery(q) {
+  query = q;
+  document.getElementById("query-preview").textContent = query;
+  highlightPreview();
+}
+
+function onQueryEdit() {
+  query = document.getElementById("query-preview").textContent;
+}
+
+function onQueryKey(e) {
+  if (e.ctrlKey && e.key === "Enter") { e.preventDefault(); executeSearch(); }
+}
+
+function onTargetChange() {
+  target = document.getElementById("target").value.trim();
+  renderTemplates();
+}
+
+function highlightPreview() {
+  const el = document.getElementById("query-preview");
+  // We'll just keep it as plain text for editability
+  // Highlighting in contenteditable is complex; keep simple
+}
+
+function executeSearch() {
+  const q = document.getElementById("query-preview").textContent.trim();
+  if (!q) return;
+  // Add to history
+  history.unshift({ q, t: Date.now() });
+  if (history.length > 100) history = history.slice(0, 100);
+  localStorage.setItem("stinger-history", JSON.stringify(history));
+  renderHistory();
+  // Open Google
+  window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, "_blank");
+}
+
+function copyQuery() {
+  const q = document.getElementById("query-preview").textContent.trim();
+  if (q) navigator.clipboard.writeText(q);
+}
+
+function clearQuery() {
+  query = "";
+  document.getElementById("query-preview").textContent = "";
+}
+
+function clearHistory() {
+  history = [];
+  localStorage.removeItem("stinger-history");
+  renderHistory();
+}
+
+function exportTemplates() {
+  let filtered = templates;
+  if (activeCat !== "all") filtered = filtered.filter(t => t.cat === activeCat);
+  const text = filtered.map(t => {
+    const dork = target ? `site:${target} ${t.dork}` : t.dork;
+    return `# ${t.name} [${t.cat}]\n${dork}\n# ${t.desc}\n`;
+  }).join("\n");
+  const blob = new Blob([text], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `stingersearch-${activeCat}-dorks.txt`;
+  a.click();
+}
+
+function exportHistory() {
+  const text = history.map(h => `${h.q}\t${new Date(h.t).toISOString()}`).join("\n");
+  const blob = new Blob([text], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "stingersearch-history.txt";
+  a.click();
+}
+
+function filterTemplates() { renderTemplates(); }
+
+// ── Init ──
+renderSidebar();
+renderOperators();
+renderTemplates();
+renderHistory();
+document.addEventListener("keydown", e => {
+  if (e.ctrlKey && e.key === "Enter") { e.preventDefault(); executeSearch(); }
+});
+</script>
+</body>
+</html>
