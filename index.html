@@ -15,24 +15,24 @@
 @font-face{font-family:'Geist Mono';src:url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/GeistMono-Regular.woff2') format('woff2');font-weight:400}
 html,body{height:100%;background:var(--bg);color:var(--fg);font-family:Geist,sans-serif;font-size:14px;line-height:1.5}
 
-/* Shell */
 .shell{display:flex;flex-direction:column;height:100vh;overflow:hidden}
 
-/* Header */
 .hdr{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;flex-shrink:0}
 .hdr .bee{font-size:28px}
 .hdr h1{font-size:22px;font-weight:700;background:var(--amber-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hdr .sub{font-size:10px;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.1em;margin-top:-2px}
-.hdr-right{margin-left:auto;display:flex;gap:8px}
+.hdr-right{margin-left:auto;display:flex;gap:8px;align-items:center}
 .hdr-right .target-wrap{display:flex;align-items:center;gap:8px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--rs);padding:4px 12px}
 .hdr-right .target-wrap label{font-size:11px;color:var(--amber);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 .hdr-right .target-wrap input{background:none;border:none;color:var(--fg);font-family:'Geist Mono',monospace;font-size:13px;width:180px;outline:none}
 .hdr-right .target-wrap input::placeholder{color:var(--fg-muted)}
+.hdr-right .hdr-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--fg-dim);padding:6px 12px;border-radius:var(--rs);cursor:pointer;font-family:Geist,sans-serif;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.hdr-right .hdr-btn:hover{border-color:var(--amber);color:var(--amber);background:var(--amber-glow)}
+.hdr-right .hdr-btn.ai{background:var(--amber-grad);color:#000;border-color:transparent;font-weight:600}
+.hdr-right .hdr-btn.ai:hover{box-shadow:0 3px 12px rgba(255,179,0,.3);color:#000}
 
-/* Main layout */
 .main-layout{display:flex;flex:1;overflow:hidden}
 
-/* Sidebar: Template categories */
 .sidebar{width:220px;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
 .sidebar .sec-label{font-size:10px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.1em;padding:14px 14px 6px}
 .cat-item{display:flex;align-items:center;gap:8px;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:500;color:var(--fg-dim);transition:all .12s;border-left:2px solid transparent}
@@ -40,27 +40,20 @@ html,body{height:100%;background:var(--bg);color:var(--fg);font-family:Geist,san
 .cat-item.active{background:var(--amber-glow);color:var(--amber);border-left-color:var(--amber)}
 .cat-item .cnt{margin-left:auto;font-size:11px;color:var(--fg-muted);font-family:'Geist Mono',monospace}
 
-/* Center: Query builder + templates */
 .center{flex:1;display:flex;flex-direction:column;overflow:hidden}
 
-/* Query builder */
 .qb{padding:20px 24px;border-bottom:1px solid var(--border);background:rgba(20,20,22,.8);flex-shrink:0}
 .qb-label{font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .qb-preview{background:var(--bg-input);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;font-family:'Geist Mono',monospace;font-size:14px;color:var(--fg);min-height:48px;line-height:1.6;cursor:text;word-break:break-all;transition:border-color .15s}
 .qb-preview:focus-within{border-color:var(--amber);box-shadow:0 0 0 2px var(--amber-glow)}
 .qb-preview[contenteditable]{outline:none}
-.qb-preview .op{color:var(--amber);font-weight:600}
-.qb-preview .val{color:var(--green)}
-.qb-preview .neg{color:var(--red)}
 
-/* Operator bar */
 .op-bar{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
 .op-btn{padding:4px 10px;border-radius:var(--rs);background:var(--bg-card);border:1px solid var(--border);color:var(--fg-dim);font-family:'Geist Mono',monospace;font-size:11px;cursor:pointer;transition:all .12s;position:relative}
 .op-btn:hover{border-color:var(--amber);color:var(--amber);background:var(--amber-glow)}
 .op-btn .tip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#222;border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-size:10px;color:var(--fg);white-space:nowrap;z-index:100;font-family:Geist,sans-serif}
 .op-btn:hover .tip{display:block}
 
-/* Actions */
 .qb-actions{display:flex;gap:8px;margin-top:12px;align-items:center}
 .btn{padding:8px 18px;border:none;border-radius:var(--rs);font-family:Geist,sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
 .btn-primary{background:var(--amber-grad);color:#000}
@@ -72,7 +65,6 @@ html,body{height:100%;background:var(--bg);color:var(--fg);font-family:Geist,san
 .btn-icon:hover{border-color:var(--amber);color:var(--amber)}
 .shortcut{font-size:10px;color:var(--fg-muted);margin-left:8px;font-family:'Geist Mono',monospace}
 
-/* Template list */
 .tpl-area{flex:1;overflow-y:auto;padding:16px 24px}
 .tpl-search{position:relative;margin-bottom:16px}
 .tpl-search input{width:100%;padding:10px 14px 10px 36px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rs);color:var(--fg);font-family:Geist,sans-serif;font-size:13px;outline:none}
@@ -81,15 +73,20 @@ html,body{height:100%;background:var(--bg);color:var(--fg);font-family:Geist,san
 .tpl-search .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--fg-muted);font-size:14px}
 
 .tpl-grid{display:flex;flex-direction:column;gap:6px}
-.tpl-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;cursor:pointer;transition:all .15s}
-.tpl-card:hover{border-color:var(--amber);background:var(--bg-hover);transform:translateX(2px)}
-.tpl-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
-.tpl-card-name{font-size:13px;font-weight:600}
-.tpl-card-cat{font-size:10px;color:var(--amber-dim);background:var(--amber-glow);padding:1px 6px;border-radius:3px}
-.tpl-card-dork{font-family:'Geist Mono',monospace;font-size:12px;color:var(--fg-dim);margin-bottom:4px;word-break:break-all}
+.tpl-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;transition:all .15s;position:relative}
+.tpl-card:hover{border-color:var(--amber);background:var(--bg-hover)}
+.tpl-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;gap:8px}
+.tpl-card-name{font-size:13px;font-weight:600;flex:1;cursor:pointer}
+.tpl-card-cat{font-size:10px;color:var(--amber-dim);background:var(--amber-glow);padding:1px 6px;border-radius:3px;white-space:nowrap}
+.tpl-card-dork{font-family:'Geist Mono',monospace;font-size:12px;color:var(--fg-dim);margin-bottom:4px;word-break:break-all;cursor:pointer}
 .tpl-card-desc{font-size:11px;color:var(--fg-muted)}
+.tpl-card-toggle{font-size:11px;color:var(--amber-dim);background:none;border:none;cursor:pointer;padding:4px 0;margin-top:4px;font-family:Geist,sans-serif}
+.tpl-card-toggle:hover{color:var(--amber)}
+.tpl-card-exp{display:none;margin-top:8px;padding:10px 12px;background:var(--bg-input);border-left:2px solid var(--amber);border-radius:4px;font-size:11px;color:var(--fg-dim);line-height:1.6}
+.tpl-card-exp.open{display:block}
+.tpl-card-exp strong{color:var(--amber);display:block;margin-top:6px;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.tpl-card-exp strong:first-child{margin-top:0}
 
-/* Right panel: History */
 .rpanel{width:260px;border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
 .rpanel .sec-label{padding:14px 14px 6px;display:flex;align-items:center;justify-content:space-between}
 .rpanel .sec-label button{background:none;border:none;color:var(--fg-muted);font-size:11px;cursor:pointer;font-family:Geist,sans-serif}
@@ -101,10 +98,32 @@ html,body{height:100%;background:var(--bg);color:var(--fg);font-family:Geist,san
 .hist-item-t{font-size:10px;color:var(--fg-muted)}
 .hist-empty{padding:24px;text-align:center;color:var(--fg-muted);font-size:12px}
 
-/* Export overlay */
 .export-bar{display:flex;gap:8px;padding:8px 14px;border-top:1px solid var(--border)}
 
-/* Mobile */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:1000}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 64px);overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.modal-hdr{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-hdr h2{font-size:16px;font-weight:700;color:var(--amber)}
+.modal-hdr .modal-close{background:none;border:none;color:var(--fg-dim);font-size:22px;cursor:pointer;line-height:1}
+.modal-hdr .modal-close:hover{color:var(--red)}
+.modal-body{padding:20px}
+.modal-body label{font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px}
+.modal-body .help{font-size:12px;color:var(--fg-dim);margin-bottom:12px;line-height:1.5}
+.modal-body input[type=text],.modal-body input[type=password],.modal-body textarea{width:100%;padding:10px 12px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--rs);color:var(--fg);font-family:Geist,sans-serif;font-size:13px;outline:none;resize:vertical}
+.modal-body input:focus,.modal-body textarea:focus{border-color:var(--amber);box-shadow:0 0 0 2px var(--amber-glow)}
+.modal-body textarea{min-height:90px;font-family:Geist,sans-serif}
+.modal-body .row{margin-bottom:14px}
+.modal-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+.ai-result{background:var(--bg-input);border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-top:14px}
+.ai-result .ai-name{font-size:14px;font-weight:700;color:var(--amber);margin-bottom:6px}
+.ai-result .ai-dork{font-family:'Geist Mono',monospace;font-size:13px;color:var(--fg);background:var(--bg);padding:8px 10px;border-radius:4px;margin-bottom:8px;word-break:break-all}
+.ai-result .ai-exp{font-size:12px;color:var(--fg-dim);line-height:1.6;margin-bottom:10px}
+.ai-result .ai-actions{display:flex;gap:8px}
+.ai-refused{padding:12px 14px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);border-radius:var(--rs);color:#fca5a5;font-size:12px;line-height:1.5;margin-top:14px}
+.ai-loading{text-align:center;padding:20px;color:var(--fg-muted);font-size:12px}
+.warn{font-size:11px;color:#fbbf24;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);border-radius:var(--rs);padding:8px 12px;margin-bottom:12px;line-height:1.5}
+
 @media(max-width:900px){
   .sidebar{display:none}
   .rpanel{display:none}
@@ -123,7 +142,6 @@ html,body{height:100%;background:var(--bg);color:var(--fg);font-family:Geist,san
 </head>
 <body>
 <div class="shell">
-  <!-- Header -->
   <header class="hdr">
     <span class="bee">🐝</span>
     <div>
@@ -135,16 +153,15 @@ html,body{height:100%;background:var(--bg);color:var(--fg);font-family:Geist,san
         <label>Target</label>
         <input type="text" id="target" placeholder="example.com" oninput="onTargetChange()">
       </div>
+      <button class="hdr-btn ai" onclick="openAiModal()">✨ AI Dork</button>
+      <button class="hdr-btn" onclick="openSettingsModal()" title="Settings">⚙</button>
     </div>
   </header>
 
   <div class="main-layout">
-    <!-- Sidebar: Categories -->
     <aside class="sidebar" id="sidebar"></aside>
 
-    <!-- Center -->
     <div class="center">
-      <!-- Query Builder -->
       <div class="qb">
         <div class="qb-label">
           Query Builder
@@ -160,17 +177,15 @@ html,body{height:100%;background:var(--bg);color:var(--fg);font-family:Geist,san
         </div>
       </div>
 
-      <!-- Template area -->
       <div class="tpl-area">
         <div class="tpl-search">
           <span class="ico">&#128269;</span>
-          <input type="text" id="tpl-filter" placeholder="Search 200+ dork templates..." oninput="filterTemplates()">
+          <input type="text" id="tpl-filter" placeholder="Search dork templates..." oninput="filterTemplates()">
         </div>
         <div class="tpl-grid" id="tpl-grid"></div>
       </div>
     </div>
 
-    <!-- Right panel: History -->
     <aside class="rpanel">
       <div class="sec-label">
         <span>History</span>
@@ -184,14 +199,69 @@ html,body{height:100%;background:var(--bg);color:var(--fg);font-family:Geist,san
   </div>
 </div>
 
+<div class="modal-overlay" id="ai-modal" onclick="if(event.target===this)closeAiModal()">
+  <div class="modal">
+    <div class="modal-hdr">
+      <h2>✨ AI Dork Generator</h2>
+      <button class="modal-close" onclick="closeAiModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div id="ai-no-key" style="display:none">
+        <div class="warn">Requires an Anthropic API key. Your key stays in this browser only (localStorage). Click the gear icon to set it.</div>
+        <button class="btn btn-primary" onclick="closeAiModal();openSettingsModal()">Set API Key</button>
+      </div>
+      <div id="ai-with-key">
+        <div class="row">
+          <label for="ai-prompt">Describe what you are hunting for</label>
+          <div class="help">Be specific. The model will construct a Google dork from standard operators. Refuses anything targeting specific people or obvious crimes.</div>
+          <textarea id="ai-prompt" placeholder="e.g. find exposed .env files on .edu domains, or look for open-source projects with hardcoded AWS keys"></textarea>
+        </div>
+        <div id="ai-output"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="closeAiModal()">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="ai-gen-btn" onclick="generateDork()">Generate</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="settings-modal" onclick="if(event.target===this)closeSettingsModal()">
+  <div class="modal">
+    <div class="modal-hdr">
+      <h2>⚙ Settings</h2>
+      <button class="modal-close" onclick="closeSettingsModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <label for="anthropic-key">Anthropic API Key</label>
+        <div class="help">Used by the AI dork generator. Stored only in your browser localStorage. Get a key at <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--amber)">console.anthropic.com</a>. Calls Claude Haiku directly from this page with the browser-access header.</div>
+        <input type="password" id="anthropic-key" placeholder="sk-ant-api03-..." autocomplete="off">
+      </div>
+      <div class="row">
+        <label for="ai-model">Model</label>
+        <div class="help">Haiku is fast and cheap. Sonnet is smarter for complex hunts.</div>
+        <select id="ai-model" style="width:100%;padding:10px 12px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--rs);color:var(--fg);font-family:Geist,sans-serif;font-size:13px;outline:none">
+          <option value="claude-haiku-4-5-20251001">claude-haiku-4-5 (default)</option>
+          <option value="claude-sonnet-4-6">claude-sonnet-4-6</option>
+        </select>
+      </div>
+      <div class="warn">This app makes API calls from your browser. Keys in localStorage can be read by any script served from this origin. Use a scoped, low-limit key if you self-host anywhere public.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="clearKey()">Clear Key</button>
+      <button class="btn btn-primary btn-sm" onclick="saveSettings()">Save</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// ── State ──
 let query = "";
 let activeCat = "all";
 let target = "";
 let history = JSON.parse(localStorage.getItem("stinger-history") || "[]");
+let expandedExplanations = new Set();
 
-// ── Operators ──
 const operators = [
   { op: "site:", tip: "Restrict to domain", ex: "site:example.com" },
   { op: "inurl:", tip: "URL contains keyword", ex: "inurl:admin" },
@@ -214,160 +284,245 @@ const operators = [
   { op: "*", tip: "Wildcard", ex: '"admin * password"' },
 ];
 
-// ── Template Library (200+ dorks) ──
 const templates = [
-  // FILES & DOCUMENTS
-  { cat: "Files", name: "Exposed PDF Documents", dork: 'filetype:pdf', desc: "Find publicly accessible PDF files" },
-  { cat: "Files", name: "Excel Spreadsheets", dork: 'filetype:xlsx OR filetype:xls', desc: "Find exposed Excel spreadsheets" },
-  { cat: "Files", name: "Word Documents", dork: 'filetype:docx OR filetype:doc', desc: "Find exposed Word documents" },
-  { cat: "Files", name: "SQL Database Dumps", dork: 'filetype:sql "INSERT INTO" OR "CREATE TABLE"', desc: "Find exposed SQL database dumps" },
-  { cat: "Files", name: "CSV Data Files", dork: 'filetype:csv "email" OR "password" OR "username"', desc: "CSV files with sensitive columns" },
-  { cat: "Files", name: "Log Files", dork: 'filetype:log "error" OR "warning" OR "failed"', desc: "Exposed application log files" },
-  { cat: "Files", name: "Configuration Files", dork: 'filetype:conf OR filetype:cfg OR filetype:ini', desc: "Exposed config files" },
-  { cat: "Files", name: "XML Data Files", dork: 'filetype:xml "password" OR "secret" OR "key"', desc: "XML files with sensitive data" },
-  { cat: "Files", name: "JSON Config Files", dork: 'filetype:json "api_key" OR "secret" OR "password"', desc: "JSON files with credentials" },
-  { cat: "Files", name: "Environment Files", dork: 'filetype:env "DB_PASSWORD" OR "API_KEY" OR "SECRET"', desc: "Exposed .env files with secrets" },
-  { cat: "Files", name: "Backup Archives", dork: 'filetype:bak OR filetype:backup OR filetype:old', desc: "Backup files left on servers" },
-  { cat: "Files", name: "SSH Private Keys", dork: 'filetype:pem "BEGIN RSA PRIVATE KEY" OR "BEGIN OPENSSH PRIVATE KEY"', desc: "Exposed SSH private keys" },
-  { cat: "Files", name: "PGP Private Keys", dork: '"BEGIN PGP PRIVATE KEY BLOCK" filetype:asc', desc: "Exposed PGP private keys" },
-  { cat: "Files", name: "Password Files", dork: 'filetype:txt "password" "username" OR "login"', desc: "Text files containing credentials" },
-  { cat: "Files", name: "Database Connection Strings", dork: 'filetype:properties "jdbc" OR "connectionString" "password"', desc: "Java/DB connection strings" },
-  { cat: "Files", name: "Cryptocurrency Wallets", dork: 'filetype:dat "wallet" OR filetype:json "mnemonic"', desc: "Exposed crypto wallet files" },
-  { cat: "Files", name: "Git Config", dork: 'filetype:txt "url = https://github.com" "password" OR "token"', desc: "Git configs with embedded creds" },
-  { cat: "Files", name: "Docker Compose", dork: 'filetype:yml "docker-compose" "password" OR "POSTGRES_PASSWORD"', desc: "Docker Compose with hardcoded passwords" },
-  { cat: "Files", name: "Terraform State", dork: 'filetype:tfstate "aws_access_key" OR "secret_key"', desc: "Terraform state with cloud credentials" },
-  { cat: "Files", name: "Kubernetes Secrets", dork: 'filetype:yaml "kind: Secret" "data:"', desc: "Kubernetes secret manifests" },
+  { cat: "Files", name: "Exposed PDF Documents", dork: 'filetype:pdf', desc: "Find publicly accessible PDF files", exp: "The filetype: operator restricts results to pages whose URL ends in the given extension. Combine with intext: or site: to focus. Often surfaces old resumes, scanned contracts, internal reports, slide decks. Defender note: mark sensitive PDFs with X-Robots-Tag: noindex and require auth for restricted paths. robots.txt is NOT a security boundary." },
+  { cat: "Files", name: "Excel Spreadsheets", dork: 'filetype:xlsx OR filetype:xls', desc: "Find exposed Excel spreadsheets", exp: "Targets both modern (xlsx) and legacy (xls) Excel workbooks. Spreadsheets are a goldmine because organizations dump employee rosters, finance data, and audit tracking into them without protecting the hosting location. Narrow with intext:email or site:target.com." },
+  { cat: "Files", name: "Word Documents", dork: 'filetype:docx OR filetype:doc', desc: "Find exposed Word documents", exp: "Word docs often contain draft policies, internal memos, HR letters, and meeting notes. Legacy .doc hides interesting metadata (author, company, revision history) that modern OSINT extracts with exiftool." },
+  { cat: "Files", name: "SQL Database Dumps", dork: 'filetype:sql "INSERT INTO" OR "CREATE TABLE"', desc: "Find exposed SQL database dumps", exp: "SQL dumps are often left in web-accessible backup folders. A full dump can include password hashes, PII, session tokens. Defender: never place .sql files under web root, even temporarily. Use object storage with auth." },
+  { cat: "Files", name: "CSV Data Files", dork: 'filetype:csv "email" OR "password" OR "username"', desc: "CSV files with sensitive columns", exp: "CSVs often hold user exports from SaaS tools. The intext phrases target header rows. Legitimate uses: finding your own exposures during a red team engagement. Results are often stale dumps from prior incidents." },
+  { cat: "Files", name: "Log Files", dork: 'filetype:log "error" OR "warning" OR "failed"', desc: "Exposed application log files", exp: "Log files leak stack traces, user IDs, IP addresses, file paths, tokens in URLs. Modern frameworks should log to stdout and ship to a SIEM. Defender: never serve /logs or /tmp from web root." },
+  { cat: "Files", name: "Configuration Files", dork: 'filetype:conf OR filetype:cfg OR filetype:ini', desc: "Exposed config files", exp: "Generic config extensions reveal Apache, Nginx, ASP.NET, database, and application settings. Add intext:password or intext:connectionString to focus on high-value entries." },
+  { cat: "Files", name: "XML Data Files", dork: 'filetype:xml "password" OR "secret" OR "key"', desc: "XML files with sensitive data", exp: "XML is the classic enterprise leak vector: Spring configs, Tomcat context.xml, WEB-INF/web.xml. May contain database credentials and embedded keystores. Add site:target.com to scope to a specific program." },
+  { cat: "Files", name: "JSON Config Files", dork: 'filetype:json "api_key" OR "secret" OR "password"', desc: "JSON files with credentials", exp: "JSON configs are common for Node, Python, and cloud deployments (gcloud key files, Firebase admin creds). The filetype: operator plus intext keyword is tight. Many bug bounty reports start here." },
+  { cat: "Files", name: "Environment Files", dork: 'filetype:env "DB_PASSWORD" OR "API_KEY" OR "SECRET"', desc: "Exposed .env files with secrets", exp: "dotenv files are the single most common credential leak. Developers push .env to web roots or forget to add it to .gitignore. The filetype:env filter plus a classic variable name catches live secrets. Rotate any discovered keys immediately and escalate to the owner." },
+  { cat: "Files", name: "Backup Archives", dork: 'filetype:bak OR filetype:backup OR filetype:old', desc: "Backup files left on servers", exp: "Devs rename files like wp-config.php.bak to bypass deploy scripts or IDE sync. These are often indexed because web servers serve them as text/plain. Add site: to scope." },
+  { cat: "Files", name: "SSH Private Keys", dork: 'filetype:pem "BEGIN RSA PRIVATE KEY" OR "BEGIN OPENSSH PRIVATE KEY"', desc: "Exposed SSH private keys", exp: "A leaked private key is game over for anything trusting it. The intext phrase matches the ASCII-armored PEM header. If you find one, report and rotate. Do not SSH in, even as a test." },
+  { cat: "Files", name: "PGP Private Keys", dork: '"BEGIN PGP PRIVATE KEY BLOCK" filetype:asc', desc: "Exposed PGP private keys", exp: "Same idea as SSH keys but for PGP. Sometimes leaks the org's code-signing key. Private keys have no business on web servers." },
+  { cat: "Files", name: "Password Files", dork: 'filetype:txt "password" "username" OR "login"', desc: "Text files containing credentials", exp: "Plaintext password.txt, creds.txt, and notes.txt are disturbingly common. The double-intext pattern catches README-style credential dumps left by admins." },
+  { cat: "Files", name: "Database Connection Strings", dork: 'filetype:properties "jdbc" OR "connectionString" "password"', desc: "Java/DB connection strings", exp: "Java .properties files and connectionString entries expose DB hostnames, schemas, and passwords. Pairs well with an internal network pivot during pentests." },
+  { cat: "Files", name: "Cryptocurrency Wallets", dork: 'filetype:dat "wallet" OR filetype:json "mnemonic"', desc: "Exposed crypto wallet files", exp: "wallet.dat files and mnemonic-bearing JSONs are theft candidates. Legitimate uses: checking your own exposure. Reporting channels vary by chain." },
+  { cat: "Files", name: "Git Config", dork: 'filetype:txt "url = https://github.com" "password" OR "token"', desc: "Git configs with embedded creds", exp: "Older Git workflows embedded PATs directly in remote URLs. Pushing the .git/config to a web root exposes them. Defender: use Git credential helpers, not embedded URLs." },
+  { cat: "Files", name: "Docker Compose", dork: 'filetype:yml "docker-compose" "password" OR "POSTGRES_PASSWORD"', desc: "Docker Compose with hardcoded passwords", exp: "docker-compose.yml files committed with hardcoded env values are an anti-pattern but common. Look for POSTGRES_PASSWORD, REDIS_PASSWORD, and SECRET_KEY_BASE (Rails)." },
+  { cat: "Files", name: "Terraform State", dork: 'filetype:tfstate "aws_access_key" OR "secret_key"', desc: "Terraform state with cloud credentials", exp: "tfstate files contain post-plan resource state including provider credentials. They belong in a remote backend (S3 + DynamoDB lock), never in a web-served repo." },
+  { cat: "Files", name: "Kubernetes Secrets", dork: 'filetype:yaml "kind: Secret" "data:"', desc: "Kubernetes secret manifests", exp: "Kubernetes Secret manifests base64-encode their data, which many people confuse with encryption. A leaked Secret manifest is a plaintext credential leak." },
+  { cat: "Files", name: "AWS Credentials File", dork: 'filetype:txt "[default]" "aws_access_key_id" "aws_secret_access_key"', desc: "AWS CLI credential file leak", exp: "The ~/.aws/credentials file format is iconic. A leak gives an attacker a valid AWS CLI session. Defender: use IAM roles, not long-lived keys." },
+  { cat: "Files", name: "GCP Service Account JSON", dork: '"type": "service_account" "private_key" filetype:json', desc: "GCP service account keys", exp: "GCP service-account JSONs grant the bearer full API access per the account's IAM bindings. A leaked file is immediate cloud compromise." },
+  { cat: "Files", name: "npmrc Token", dork: 'filetype:npmrc "_authToken" OR "//registry.npmjs.org/:_authToken"', desc: ".npmrc files with publish tokens", exp: ".npmrc with _authToken allows publishing to the registry under that user. A supply-chain nightmare. Defender: use granular, expiring tokens scoped per CI pipeline." },
+  { cat: "Files", name: "Postman Collection Exports", dork: 'filetype:json "info" "schema" "postman" "bearer"', desc: "Postman collections with tokens", exp: "Exported Postman collections often embed live bearer tokens, cookies, and environment secrets. Developers email these around or drop them into shared drives." },
+  { cat: "Files", name: "Android Keystores", dork: 'filetype:jks OR filetype:keystore', desc: "Java keystores with signing keys", exp: "Android apps are signed with a keystore. A leaked keystore plus its password lets an attacker push malicious updates under the original signing identity. Replace immediately if compromised." },
+  { cat: "Files", name: "iOS Provisioning Profiles", dork: 'filetype:mobileprovision', desc: "Apple provisioning profiles", exp: "Embedded-profile leaks may reveal team IDs, device UDIDs, entitlements, and push cert fingerprints. Not catastrophic alone but useful for targeted phishing and cert pinning recon." },
+  { cat: "Files", name: "Jupyter Notebooks With Secrets", dork: 'filetype:ipynb "api_key" OR "password" OR "secret"', desc: "Jupyter notebooks with inline creds", exp: "Notebooks are a huge leak source: data scientists paste tokens into cells to quickly fetch data, then commit the notebook. The ipynb JSON embeds cell outputs too." },
+  { cat: "Files", name: "WordPress wp-backup", dork: '"index of" "wp-content" ".tar.gz" OR ".zip"', desc: "WordPress site backups", exp: "Site-wide backups in wp-content include the database dump and wp-config.php. Backup plugins place archives under wp-content/backups by default and forget to restrict access." },
 
-  // LOGIN PAGES
-  { cat: "Logins", name: "Admin Login Pages", dork: 'intitle:"admin login" OR intitle:"admin panel"', desc: "Administrative login portals" },
-  { cat: "Logins", name: "WordPress Login", dork: 'inurl:wp-login.php', desc: "WordPress admin login pages" },
-  { cat: "Logins", name: "phpMyAdmin", dork: 'intitle:"phpMyAdmin" "Welcome to phpMyAdmin"', desc: "Exposed phpMyAdmin instances" },
-  { cat: "Logins", name: "cPanel Login", dork: 'inurl:":2082" OR inurl:":2083" intitle:"cPanel"', desc: "cPanel hosting login pages" },
-  { cat: "Logins", name: "Webmail Login", dork: 'intitle:"Roundcube Webmail" OR intitle:"Horde" inurl:login', desc: "Webmail login interfaces" },
-  { cat: "Logins", name: "VPN Login Portals", dork: 'intitle:"SSL VPN" OR intitle:"GlobalProtect" inurl:login', desc: "VPN login portals" },
-  { cat: "Logins", name: "Citrix Gateway", dork: 'intitle:"Citrix Gateway" OR intitle:"NetScaler" inurl:login', desc: "Citrix remote access login" },
-  { cat: "Logins", name: "Grafana Login", dork: 'intitle:"Grafana" inurl:login', desc: "Grafana dashboard login" },
-  { cat: "Logins", name: "Jenkins Dashboard", dork: 'intitle:"Dashboard [Jenkins]"', desc: "Unauthenticated Jenkins dashboards" },
-  { cat: "Logins", name: "Kibana Dashboard", dork: 'intitle:"Kibana" inurl:app/kibana', desc: "Open Kibana/Elasticsearch dashboards" },
-  { cat: "Logins", name: "Jira Login", dork: 'inurl:"/login.jsp" intitle:"Log in" "Jira"', desc: "Jira project management login" },
-  { cat: "Logins", name: "Default Credentials Page", dork: 'intitle:"default password" OR "factory password" filetype:html', desc: "Pages listing default credentials" },
-  { cat: "Logins", name: "Router Login", dork: 'intitle:"Router Login" OR intitle:"NETGEAR" inurl:login', desc: "Router web interface logins" },
+  { cat: "Logins", name: "Admin Login Pages", dork: 'intitle:"admin login" OR intitle:"admin panel"', desc: "Administrative login portals", exp: "Catches pages that literally title themselves 'Admin Login' or 'Admin Panel'. Low signal on its own. Add site: to scope. Useful as a starting point during a scope-authorized recon pass." },
+  { cat: "Logins", name: "WordPress Login", dork: 'inurl:wp-login.php', desc: "WordPress admin login pages", exp: "Every WordPress site has /wp-login.php unless hardened. Knowing a target runs WP is useful for targeted patching checks or public-issue tracking." },
+  { cat: "Logins", name: "phpMyAdmin", dork: 'intitle:"phpMyAdmin" "Welcome to phpMyAdmin"', desc: "Exposed phpMyAdmin instances", exp: "phpMyAdmin panels should never be internet-facing. Public instances suggest default credentials, weak passwords, or a forgotten dev box." },
+  { cat: "Logins", name: "cPanel Login", dork: 'inurl:":2082" OR inurl:":2083" intitle:"cPanel"', desc: "cPanel hosting login pages", exp: "Shared hosting control panel. The explicit :2082 (HTTP) and :2083 (HTTPS) ports are the canonical entry. Useful for phishing research and password-spray scope enumeration." },
+  { cat: "Logins", name: "Webmail Login", dork: 'intitle:"Roundcube Webmail" OR intitle:"Horde" inurl:login', desc: "Webmail login interfaces", exp: "Webmail portals are a classic credential-stuffing target. Knowing which product (Roundcube vs Horde) is running narrows known CVEs." },
+  { cat: "Logins", name: "VPN Login Portals", dork: 'intitle:"SSL VPN" OR intitle:"GlobalProtect" inurl:login', desc: "VPN login portals", exp: "Palo Alto GlobalProtect, Pulse Secure, and generic SSL VPN portals have been hit by major CVEs repeatedly. A VPN with a weak patch cadence is a frequent initial-access vector." },
+  { cat: "Logins", name: "Citrix Gateway", dork: 'intitle:"Citrix Gateway" OR intitle:"NetScaler" inurl:login', desc: "Citrix remote access login", exp: "Citrix NetScaler has faced CVE-2023-3519 (RCE) and CVE-2023-4966 (Citrix Bleed). Exposed instances are a constant patch-lag check." },
+  { cat: "Logins", name: "Grafana Login", dork: 'intitle:"Grafana" inurl:login', desc: "Grafana dashboard login", exp: "Grafana panels often leak internal metric names, data source URLs, and sometimes enable anonymous viewing. CVE-2021-43798 (path traversal) is commonly unpatched in older versions." },
+  { cat: "Logins", name: "Jenkins Dashboard", dork: 'intitle:"Dashboard [Jenkins]"', desc: "Unauthenticated Jenkins dashboards", exp: "A Jenkins dashboard visible without login is a red alert: anonymous users may trigger builds, read credentials, or run Groovy. CVE-2024-23897 made unauth file reads trivial." },
+  { cat: "Logins", name: "Kibana Dashboard", dork: 'intitle:"Kibana" inurl:app/kibana', desc: "Open Kibana/Elasticsearch dashboards", exp: "Kibana without auth exposes the underlying Elasticsearch cluster. Search 'Discover' to browse indices. Historical CVEs include LFI and JavaScript prototype pollution." },
+  { cat: "Logins", name: "Jira Login", dork: 'inurl:"/login.jsp" intitle:"Log in" "Jira"', desc: "Jira project management login", exp: "Jira credentials unlock project data, linked Confluence pages, and often connected Bitbucket/GitHub repos. Heavy target for credential-stuffing." },
+  { cat: "Logins", name: "Default Credentials Page", dork: 'intitle:"default password" OR "factory password" filetype:html', desc: "Pages listing default credentials", exp: "Device documentation and vendor user manuals that publish default login pairs. Useful for deployed-device audits." },
+  { cat: "Logins", name: "Router Login", dork: 'intitle:"Router Login" OR intitle:"NETGEAR" inurl:login', desc: "Router web interface logins", exp: "Consumer routers exposed to the WAN interface. Usually indicates ISP misconfiguration or a user flipping remote admin on. Many vendors still ship default admin/admin." },
+  { cat: "Logins", name: "ServiceNow Portal", dork: 'inurl:"service-now.com" inurl:"login.do"', desc: "ServiceNow ITSM login", exp: "ServiceNow instances host ticketing, CMDB, and HR workflows. Recent CVE-2024-4879 (Jelly template injection) enables unauth data theft on older builds." },
+  { cat: "Logins", name: "Splunk Login", dork: 'intitle:"Login - Splunk"', desc: "Splunk SIEM login portal", exp: "Access to a company's SIEM is worst-case: attackers can query logs for their own footprints, verify detection gaps, and extract sensitive content." },
+  { cat: "Logins", name: "Okta Admin", dork: 'inurl:"okta.com/admin/" OR intitle:"Okta Sign-In"', desc: "Okta admin console", exp: "Okta is the identity provider for many orgs. The admin console is high-value. MFA and IP allowlists are the primary defense." },
+  { cat: "Logins", name: "RDWeb / RDS Gateway", dork: 'intitle:"RD Web Access" inurl:"RDWeb/Pages"', desc: "Microsoft Remote Desktop Web portal", exp: "RD Web Access exposes a workforce's RDP entry. BlueKeep (CVE-2019-0708) and similar CVEs target these. Also a vector for NTLM relay and password spraying." },
+  { cat: "Logins", name: "Exchange OWA", dork: 'inurl:"owa/auth/logon.aspx"', desc: "Exchange Outlook Web Access", exp: "OWA portals are phishing honeypots and CVE targets (ProxyLogon, ProxyShell). Version fingerprinting through HTTP headers tells you quickly if patches are current." },
+  { cat: "Logins", name: "VMware vCenter", dork: 'intitle:"VMware vCenter" OR intitle:"VMware vSphere Web Client"', desc: "VMware vCenter web client", exp: "vCenter CVE-2021-21985 and CVE-2021-22005 were chained for unauth RCE and mass exploitation in the wild. Expose vCenter to the internet at your peril." },
+  { cat: "Logins", name: "FortiGate SSL VPN", dork: 'intitle:"FortiGate" inurl:"/remote/login"', desc: "Fortinet FortiGate VPN portal", exp: "FortiGate has been hit by multiple credential-leak CVEs (CVE-2018-13379, CVE-2022-40684). Patching discipline is critical." },
+  { cat: "Logins", name: "Cisco ASA / AnyConnect", dork: 'intitle:"Cisco Systems, Inc. VPN Service" OR intitle:"WebVPN Service"', desc: "Cisco ASA/AnyConnect portals", exp: "Cisco AnyConnect portals have historical and recent CVEs affecting auth. Arrange disclosure via the vendor's PSIRT process if you find something." },
 
-  // DIRECTORIES
-  { cat: "Directories", name: "Open Directory Listings", dork: 'intitle:"index of /" -inurl:github', desc: "Apache/nginx directory listings" },
-  { cat: "Directories", name: "Parent Directory", dork: 'intitle:"index of" "parent directory"', desc: "Browseable parent directories" },
-  { cat: "Directories", name: "FTP Directories", dork: 'intitle:"index of" inurl:ftp', desc: "Open FTP directory listings" },
-  { cat: "Directories", name: "Backup Directories", dork: 'intitle:"index of" "backup" OR "bak" OR "old"', desc: "Directories containing backups" },
-  { cat: "Directories", name: "Upload Directories", dork: 'intitle:"index of" "upload" OR "uploads"', desc: "Open upload directories" },
-  { cat: "Directories", name: "Config Directories", dork: 'intitle:"index of" "config" OR "conf" OR "etc"', desc: "Exposed configuration directories" },
-  { cat: "Directories", name: "WordPress Uploads", dork: 'intitle:"index of" inurl:wp-content/uploads', desc: "WordPress upload directories" },
-  { cat: "Directories", name: "Git Repositories", dork: 'intitle:"index of" ".git"', desc: "Exposed .git directories" },
-  { cat: "Directories", name: "SVN Repositories", dork: 'intitle:"index of" ".svn"', desc: "Exposed .svn directories" },
-  { cat: "Directories", name: "Media Directories", dork: 'intitle:"index of" "mp3" OR "mp4" OR "mkv" OR "avi"', desc: "Directories with media files" },
+  { cat: "Directories", name: "Open Directory Listings", dork: 'intitle:"index of /" -inurl:github', desc: "Apache/nginx directory listings", exp: "The most classic dork. Apache and Nginx generate auto-index pages when directory indexing is on AND no index file is present. Use -inurl:github to filter out package listings." },
+  { cat: "Directories", name: "Parent Directory", dork: 'intitle:"index of" "parent directory"', desc: "Browseable parent directories", exp: "Refines the above. 'Parent Directory' is the link Apache places atop a listing. Useful when you already have a known file and want to climb one level." },
+  { cat: "Directories", name: "FTP Directories", dork: 'intitle:"index of" inurl:ftp', desc: "Open FTP directory listings", exp: "Web-facing ftp/ directories are often leftover from legacy deployments. Often hold backups, legacy DB dumps, and scanned documents." },
+  { cat: "Directories", name: "Backup Directories", dork: 'intitle:"index of" "backup" OR "bak" OR "old"', desc: "Directories containing backups", exp: "Find /backup/, /bak/, /old/ directories listing .tar.gz, .sql, or full-site archives. Always check for monthly/yearly archive naming." },
+  { cat: "Directories", name: "Upload Directories", dork: 'intitle:"index of" "upload" OR "uploads"', desc: "Open upload directories", exp: "User-uploaded content directories. WordPress /wp-content/uploads/ is most common. Sometimes contains personal IDs, resumes, or confidential attachments." },
+  { cat: "Directories", name: "Config Directories", dork: 'intitle:"index of" "config" OR "conf" OR "etc"', desc: "Exposed configuration directories", exp: "A listing of /config/ or /etc/ under web root is a security review finding on its own. Drill into the directory for .conf, .ini, .env files." },
+  { cat: "Directories", name: "WordPress Uploads", dork: 'intitle:"index of" inurl:wp-content/uploads', desc: "WordPress upload directories", exp: "Client files, branding assets, and sometimes backup plugin artifacts. Common path: /wp-content/uploads/YYYY/MM/." },
+  { cat: "Directories", name: "Git Repositories", dork: 'intitle:"index of" ".git"', desc: "Exposed .git directories", exp: "A web-readable .git directory lets an attacker reconstruct the full source code and history with git-dumper or similar tools. Many bug bounty payouts start here." },
+  { cat: "Directories", name: "SVN Repositories", dork: 'intitle:"index of" ".svn"', desc: "Exposed .svn directories", exp: "Same idea as .git but for older Subversion workflows. Less common now but still found on legacy sites." },
+  { cat: "Directories", name: "Media Directories", dork: 'intitle:"index of" "mp3" OR "mp4" OR "mkv" OR "avi"', desc: "Directories with media files", exp: "Open media directories are not always security-relevant but often accompany misconfigured webroots where more sensitive assets sit in neighbor folders." },
+  { cat: "Directories", name: "node_modules Exposed", dork: 'intitle:"index of" "node_modules"', desc: "Deployed node_modules folders", exp: "A deployed node_modules directory is a massive surface. Attackers can fingerprint exact package versions for CVE targeting and sometimes find .env-like files mistakenly included." },
+  { cat: "Directories", name: "Composer vendor Exposed", dork: 'intitle:"index of" "vendor/composer"', desc: "PHP composer vendor directories", exp: "PHP vendor/ directories expose third-party library versions. Identifies vulnerable dependency chains (CVE-2021-41125 HTTP smuggling in Werkzeug-like libs)." },
+  { cat: "Directories", name: "Dist / Build Folders", dork: 'intitle:"index of" "/dist/" OR "/build/"', desc: "Frontend build output directories", exp: "Build output directories often include sourcemaps (.js.map) that decompile minified code, sometimes revealing internal API routes and hardcoded tokens." },
+  { cat: "Directories", name: "__MACOSX Leftovers", dork: 'intitle:"index of" "__MACOSX"', desc: "Accidentally extracted Mac metadata", exp: "The __MACOSX folder is created when a Mac user zips a folder. Its presence means someone uploaded a zip via the web without extracting cleanly, often leaking the full archive's structure." },
+  { cat: "Directories", name: ".vscode Leaked", dork: 'intitle:"index of" ".vscode"', desc: "VS Code settings folders", exp: "A committed .vscode/ directory may contain launch.json with embedded debugging credentials, database URLs, and custom task definitions." },
 
-  // CONFIGURATIONS
-  { cat: "Configs", name: "wp-config.php", dork: 'inurl:wp-config.php -inurl:github', desc: "WordPress configuration with DB creds" },
-  { cat: "Configs", name: ".htaccess Files", dork: 'inurl:.htaccess -inurl:github "AuthUserFile"', desc: "Apache .htaccess with auth rules" },
-  { cat: "Configs", name: "web.config", dork: 'filetype:config "connectionString" "password"', desc: "IIS/ASP.NET web.config with creds" },
-  { cat: "Configs", name: "php.ini", dork: 'filetype:ini "php" "password" OR "mysql"', desc: "PHP configuration files" },
-  { cat: "Configs", name: "Apache Config", dork: 'filetype:conf "ServerRoot" OR "DocumentRoot"', desc: "Apache server configuration" },
-  { cat: "Configs", name: "Nginx Config", dork: 'filetype:conf "nginx" "server_name" "proxy_pass"', desc: "Nginx server configuration" },
-  { cat: "Configs", name: ".env Exposed", dork: 'intitle:"index of" ".env" -github', desc: "Exposed .env files in directory listings" },
-  { cat: "Configs", name: "Firebase Config", dork: '"firebaseConfig" "apiKey" "authDomain" filetype:js', desc: "Firebase config with API keys" },
-  { cat: "Configs", name: "AWS Credentials", dork: '"aws_access_key_id" "aws_secret_access_key" filetype:txt OR filetype:cfg', desc: "Exposed AWS credentials" },
-  { cat: "Configs", name: "Ansible Vault", dork: '"$ANSIBLE_VAULT" filetype:yml', desc: "Ansible vault encrypted files (weak keys)" },
+  { cat: "Configs", name: "wp-config.php", dork: 'inurl:wp-config.php -inurl:github', desc: "WordPress configuration with DB creds", exp: "wp-config.php holds DB credentials, auth salts, and table prefixes. If served as raw text (misconfigured PHP), it is an immediate DB takeover. Defender: ensure PHP files are executed, not served as text." },
+  { cat: "Configs", name: ".htaccess Files", dork: 'inurl:.htaccess -inurl:github "AuthUserFile"', desc: "Apache .htaccess with auth rules", exp: "An .htaccess served as text reveals internal URL rewrites, auth mechanisms, and paths to .htpasswd files. Apache should never serve .ht* files (the default deny rule handles this)." },
+  { cat: "Configs", name: "web.config", dork: 'filetype:config "connectionString" "password"', desc: "IIS/ASP.NET web.config with creds", exp: "web.config is IIS's equivalent of wp-config. It routinely holds DB connection strings with embedded passwords. Many exposures are due to IIS accidentally serving .config as text after broken handler mappings." },
+  { cat: "Configs", name: "php.ini", dork: 'filetype:ini "php" "password" OR "mysql"', desc: "PHP configuration files", exp: "Global PHP settings. Sometimes misused to store per-app database credentials. Exposes error-reporting levels that inform exploitation." },
+  { cat: "Configs", name: "Apache Config", dork: 'filetype:conf "ServerRoot" OR "DocumentRoot"', desc: "Apache server configuration", exp: "httpd.conf or apache2.conf leaks reveal virtual host layout, module configuration, and sometimes internal backend targets in mod_proxy rules." },
+  { cat: "Configs", name: "Nginx Config", dork: 'filetype:conf "nginx" "server_name" "proxy_pass"', desc: "Nginx server configuration", exp: "Nginx configs disclose backend upstreams (proxy_pass), internal service topology, and caching rules. Useful for mapping the internal architecture behind a WAF." },
+  { cat: "Configs", name: ".env Exposed", dork: 'intitle:"index of" ".env" -github', desc: "Exposed .env files in directory listings", exp: "Paired with the filetype:env dork above. This variant catches directory listings that include .env. Browsers usually refuse to render dotfiles inline so raw view is often available." },
+  { cat: "Configs", name: "Firebase Config", dork: '"firebaseConfig" "apiKey" "authDomain" filetype:js', desc: "Firebase config with API keys", exp: "Firebase web SDKs require apiKey to be embedded client-side. This alone is not a vulnerability (Firebase expects it public), but combined with overly permissive Firestore or Realtime DB rules it becomes trivial data exfiltration." },
+  { cat: "Configs", name: "AWS Credentials", dork: '"aws_access_key_id" "aws_secret_access_key" filetype:txt OR filetype:cfg', desc: "Exposed AWS credentials", exp: "Classic. If a key is live, report to the org via security.txt or their bug bounty program. Do not exercise the credential beyond the minimum required to prove control." },
+  { cat: "Configs", name: "Ansible Vault", dork: '"$ANSIBLE_VAULT" filetype:yml', desc: "Ansible vault encrypted files (weak keys)", exp: "Ansible Vault encrypts secrets but can be brute-forced offline if the password is weak. Modern playbooks should use inventory-level secrets providers instead." },
+  { cat: "Configs", name: "GitLab CI YAML", dork: 'filetype:yml "stages:" "image:" ".gitlab-ci"', desc: "GitLab CI pipeline configs", exp: ".gitlab-ci.yml files leak build logic, artifact paths, and sometimes inline secrets. GitLab supports CI/CD variables specifically so secrets do not live in YAML." },
+  { cat: "Configs", name: "CircleCI Config", dork: 'filetype:yml "version: 2" "jobs:" "circleci"', desc: "CircleCI pipeline configs", exp: "Same risk profile as GitLab CI. Sometimes leaks deploy keys or webhook targets." },
+  { cat: "Configs", name: "Jenkinsfile Leaks", dork: 'filetype:txt "pipeline {" "agent" "stages"', desc: "Jenkinsfile Groovy pipelines", exp: "Jenkinsfiles reveal build logic and occasionally embed credentialsId references. Combined with an exposed Jenkins instance, these are blueprint and lock in one place." },
+  { cat: "Configs", name: "Serverless Framework", dork: 'filetype:yml "service:" "provider:" "functions:"', desc: "serverless.yml deployment specs", exp: "serverless.yml describes Lambda/Azure Functions deployments, including IAM permissions and environment variables. A leak maps the serverless architecture." },
+  { cat: "Configs", name: "Netlify TOML", dork: 'filetype:toml "[build]" "publish" "command"', desc: "Netlify site configurations", exp: "netlify.toml reveals build command, publish directory, and sometimes context-based env var names. Useful for fingerprinting a static-site deployment." },
+  { cat: "Configs", name: "crossdomain.xml", dork: 'filetype:xml "cross-domain-policy" "allow-access-from domain=\"*\""', desc: "Wildcard Flash crossdomain policies", exp: "A wildcard allow-access-from is a legacy Flash vulnerability but still valuable against SWF-backed upload forms on old apps." },
+  { cat: "Configs", name: "Robots with Admin Paths", dork: 'filetype:txt "User-agent:" "Disallow: /admin" OR "Disallow: /api"', desc: "robots.txt revealing internal paths", exp: "robots.txt is security through obscurity at best. Attackers read it first. The Disallow entries act as a hit list of 'interesting' endpoints the site owner wanted hidden." },
 
-  // DATABASES
-  { cat: "Databases", name: "Exposed MySQL", dork: 'intitle:"phpMyAdmin" "Welcome to" -demo', desc: "Open phpMyAdmin databases" },
-  { cat: "Databases", name: "Adminer Panels", dork: 'intitle:"Adminer" "Login" inurl:adminer', desc: "Exposed Adminer database tools" },
-  { cat: "Databases", name: "MongoDB Express", dork: 'intitle:"Mongo Express" "Database"', desc: "Exposed MongoDB Express web UI" },
-  { cat: "Databases", name: "Elasticsearch Open", dork: 'intitle:"Elasticsearch Head" OR inurl:_cat/indices', desc: "Open Elasticsearch clusters" },
-  { cat: "Databases", name: "Redis Commander", dork: 'intitle:"Redis Commander"', desc: "Exposed Redis web management" },
-  { cat: "Databases", name: "CouchDB Open", dork: 'inurl:":5984/_utils" intitle:"Futon"', desc: "Open CouchDB Futon interface" },
-  { cat: "Databases", name: "PostgreSQL pgAdmin", dork: 'intitle:"pgAdmin" inurl:login', desc: "Exposed pgAdmin instances" },
-  { cat: "Databases", name: "SQL Dumps Online", dork: 'filetype:sql "INSERT INTO" "VALUES" -github', desc: "SQL dump files on web servers" },
-  { cat: "Databases", name: "SQLite Files", dork: 'filetype:db OR filetype:sqlite "CREATE TABLE"', desc: "Exposed SQLite database files" },
-  { cat: "Databases", name: "Cassandra OpsCenter", dork: 'intitle:"OpsCenter" "Cassandra"', desc: "Exposed Cassandra management" },
+  { cat: "Databases", name: "Exposed MySQL", dork: 'intitle:"phpMyAdmin" "Welcome to" -demo', desc: "Open phpMyAdmin databases", exp: "Public phpMyAdmin is almost always a misconfiguration. Check login page for version info (phpMyAdmin has had SQL injection CVEs as recently as 2023)." },
+  { cat: "Databases", name: "Adminer Panels", dork: 'intitle:"Adminer" "Login" inurl:adminer', desc: "Exposed Adminer database tools", exp: "Adminer is a single-file PHP DB admin UI. Its simplicity makes it easy to drop into /public/ and forget. If exposed, treat as DB takeover risk." },
+  { cat: "Databases", name: "MongoDB Express", dork: 'intitle:"Mongo Express" "Database"', desc: "Exposed MongoDB Express web UI", exp: "Mongo Express exposed without auth is a full DB dump away. Binding to 0.0.0.0 during dev and never walling it off is the typical root cause." },
+  { cat: "Databases", name: "Elasticsearch Open", dork: 'intitle:"Elasticsearch Head" OR inurl:_cat/indices', desc: "Open Elasticsearch clusters", exp: "An ES cluster with _cat/indices reachable anonymously is a 'help yourself' data warehouse. The old Shodan staple. Defender: set xpack security and bind to loopback." },
+  { cat: "Databases", name: "Redis Commander", dork: 'intitle:"Redis Commander"', desc: "Exposed Redis web management", exp: "Redis Commander UI over Redis that itself has no auth. Often seen in dev-flavor production. Can flush keys, read sessions, write arbitrary keys." },
+  { cat: "Databases", name: "CouchDB Open", dork: 'inurl:":5984/_utils" intitle:"Futon"', desc: "Open CouchDB Futon interface", exp: "Port 5984 is CouchDB's HTTP API. Futon is the web UI. CVE-2017-12636 was a remote command execution via config changes accessible to authed admins." },
+  { cat: "Databases", name: "PostgreSQL pgAdmin", dork: 'intitle:"pgAdmin" inurl:login', desc: "Exposed pgAdmin instances", exp: "pgAdmin instances on the public internet are a credential-stuffing target. Older versions have had SSRF and path-traversal issues." },
+  { cat: "Databases", name: "SQL Dumps Online", dork: 'filetype:sql "INSERT INTO" "VALUES" -github', desc: "SQL dump files on web servers", exp: "Raw SQL dumps on web-reachable paths. Attackers Grep them for password columns, token tables, session storage." },
+  { cat: "Databases", name: "SQLite Files", dork: 'filetype:db OR filetype:sqlite "CREATE TABLE"', desc: "Exposed SQLite database files", exp: "SQLite is portable. Leaks from mobile apps, Electron apps, or small tools. Download and open with the sqlite3 CLI to inspect." },
+  { cat: "Databases", name: "Cassandra OpsCenter", dork: 'intitle:"OpsCenter" "Cassandra"', desc: "Exposed Cassandra management", exp: "Cassandra OpsCenter was DataStax's management UI. Exposed instances may allow keyspace enumeration and cluster management." },
+  { cat: "Databases", name: "InfluxDB Open", dork: 'intitle:"InfluxDB" "Chronograf" OR inurl:":8086/query"', desc: "Open InfluxDB/Chronograf", exp: "Time-series DBs often back internal monitoring. Exposed instances leak metric names, hostnames, and sometimes application-level data piped into metrics." },
+  { cat: "Databases", name: "Neo4j Browser", dork: 'intitle:"Neo4j Browser" OR inurl:":7474"', desc: "Neo4j graph database UI", exp: "Default Neo4j deployments use port 7474 and the 'neo4j' user with a default password until set. Exposed instances are often default-credential takeovers." },
+  { cat: "Databases", name: "Supabase Anon Key Leak", dork: 'filetype:js "supabase.co" "anon" "eyJ"', desc: "Supabase anon keys in JS", exp: "Supabase anon keys are meant to be public but ONLY when row-level security is properly configured. Unconfigured RLS plus a leaked anon key equals full DB read." },
 
-  // CLOUD
-  { cat: "Cloud", name: "Open S3 Buckets", dork: 'site:s3.amazonaws.com "index of"', desc: "Open Amazon S3 bucket listings" },
-  { cat: "Cloud", name: "Azure Blob Storage", dork: 'site:blob.core.windows.net "index" OR "listing"', desc: "Open Azure Blob containers" },
-  { cat: "Cloud", name: "GCP Storage", dork: 'site:storage.googleapis.com "index" OR "listing"', desc: "Open Google Cloud Storage buckets" },
-  { cat: "Cloud", name: "DigitalOcean Spaces", dork: 'site:digitaloceanspaces.com "index of"', desc: "Open DigitalOcean Spaces" },
-  { cat: "Cloud", name: "Exposed Firebase DBs", dork: 'site:firebaseio.com "null" OR "true"', desc: "Firebase databases with public read" },
-  { cat: "Cloud", name: "Heroku Config Vars", dork: 'site:herokuapp.com "config" "password" OR "api_key"', desc: "Heroku apps leaking config" },
-  { cat: "Cloud", name: "Travis CI Logs", dork: 'site:travis-ci.org "secure" "password" OR "token"', desc: "CI logs with leaked secrets" },
-  { cat: "Cloud", name: "GitHub Secrets", dork: 'site:github.com "password" filetype:env OR "API_KEY" filetype:json', desc: "GitHub repos with hardcoded secrets" },
-  { cat: "Cloud", name: "GitLab Snippets", dork: 'site:gitlab.com "password" OR "token" "snippet"', desc: "GitLab snippets with credentials" },
-  { cat: "Cloud", name: "Trello Boards", dork: 'site:trello.com "password" OR "credentials" OR "api key"', desc: "Trello boards with sensitive data" },
+  { cat: "Cloud", name: "Open S3 Buckets", dork: 'site:s3.amazonaws.com "index of"', desc: "Open Amazon S3 bucket listings", exp: "An S3 bucket with ListObjects enabled anonymously. The AWS default is private but many orgs still flip to public. Check the bug bounty program's scope carefully before interacting." },
+  { cat: "Cloud", name: "Azure Blob Storage", dork: 'site:blob.core.windows.net "index" OR "listing"', desc: "Open Azure Blob containers", exp: "Azure Blob containers with public-read access. List via ?restype=container&comp=list. Often contains old backups, IIS logs, and VM disk exports." },
+  { cat: "Cloud", name: "GCP Storage", dork: 'site:storage.googleapis.com "index" OR "listing"', desc: "Open Google Cloud Storage buckets", exp: "GCS buckets flipped to allUsers reader. Same takeaway as S3 but with GCP IAM semantics." },
+  { cat: "Cloud", name: "DigitalOcean Spaces", dork: 'site:digitaloceanspaces.com "index of"', desc: "Open DigitalOcean Spaces", exp: "DigitalOcean Spaces is S3-compatible. Public Spaces show the same 'index of' style when listing is enabled." },
+  { cat: "Cloud", name: "Exposed Firebase DBs", dork: 'site:firebaseio.com "null" OR "true"', desc: "Firebase databases with public read", exp: "Realtime Database rules default to restricted but dev shortcuts of '.read': true leak entire trees. The '.json' suffix on any path returns raw data." },
+  { cat: "Cloud", name: "Heroku Config Vars", dork: 'site:herokuapp.com "config" "password" OR "api_key"', desc: "Heroku apps leaking config", exp: "Heroku apps occasionally render their own env vars on debug pages. Rare but catastrophic when it happens." },
+  { cat: "Cloud", name: "Travis CI Logs", dork: 'site:travis-ci.org "secure" "password" OR "token"', desc: "CI logs with leaked secrets", exp: "Public Travis logs sometimes include echoed secrets when users print env vars for debugging. Same pattern shows up on GitHub Actions logs." },
+  { cat: "Cloud", name: "GitHub Secrets", dork: 'site:github.com "password" filetype:env OR "API_KEY" filetype:json', desc: "GitHub repos with hardcoded secrets", exp: "Scope appropriately. The GitHub secret-scanning team already auto-revokes some keys. Reporting is best done through the affected vendor (Stripe, AWS, etc.)." },
+  { cat: "Cloud", name: "GitLab Snippets", dork: 'site:gitlab.com "password" OR "token" "snippet"', desc: "GitLab snippets with credentials", exp: "GitLab snippets are essentially public gists. People paste entire .env files to share with a colleague and forget the visibility." },
+  { cat: "Cloud", name: "Trello Boards", dork: 'site:trello.com "password" OR "credentials" OR "api key"', desc: "Trello boards with sensitive data", exp: "Public Trello boards leak launch plans, roadmaps, support cases with PII, and occasionally infrastructure credentials. Defender: audit board visibility quarterly." },
+  { cat: "Cloud", name: "Cloudflare R2 Public", dork: 'site:r2.cloudflarestorage.com', desc: "Public Cloudflare R2 buckets", exp: "Cloudflare R2 is S3-compatible with no egress fees. Public buckets are rarer by default than S3 but still appear when misconfigured." },
+  { cat: "Cloud", name: "Backblaze B2 Public", dork: 'site:f000.backblazeb2.com', desc: "Public Backblaze B2 files", exp: "B2 buckets set to 'Public' expose all files on unpredictable but guessable paths. Check with rclone or boto3." },
+  { cat: "Cloud", name: "AWS Lambda Function URLs", dork: 'site:lambda-url.us-east-1.on.aws OR site:lambda-url.eu-west-1.on.aws', desc: "Public AWS Lambda Function URLs", exp: "Lambda Function URLs provide a direct HTTPS endpoint to a function, bypassing API Gateway. Misconfigured auth types leave these wide open." },
+  { cat: "Cloud", name: "Azure Functions", dork: 'site:azurewebsites.net "api/" intitle:"Function App"', desc: "Azure Function App endpoints", exp: "Azure Functions support anonymous or function-key auth. Misconfiguring auth to anonymous is common in POC deployments left running." },
+  { cat: "Cloud", name: "Ngrok Tunnels", dork: 'site:ngrok.io OR site:ngrok-free.app', desc: "Active ngrok tunnels", exp: "ngrok exposes local dev services publicly. Frequently found with admin panels, debug endpoints, and local databases. Ephemeral but often left running for days." },
 
-  // CAMERAS & IoT
-  { cat: "Cameras", name: "Webcam XP", dork: 'intitle:"webcamXP 5" OR intitle:"webcam 7"', desc: "WebcamXP streaming servers" },
-  { cat: "Cameras", name: "Hikvision DVR", dork: 'intitle:"DVRDVS-Webs" OR intitle:"Hikvision"', desc: "Hikvision IP cameras/DVRs" },
-  { cat: "Cameras", name: "IP Cameras (generic)", dork: 'inurl:"/view/view.shtml" OR inurl:"ViewerFrame?Mode="', desc: "Generic IP camera feeds" },
-  { cat: "Cameras", name: "Axis Cameras", dork: 'inurl:"/axis-cgi/" OR intitle:"AXIS" "Network Camera"', desc: "Axis network cameras" },
-  { cat: "Cameras", name: "Dahua Cameras", dork: 'intitle:"Dahua" inurl:login', desc: "Dahua IP camera login" },
-  { cat: "Cameras", name: "VLC Web Interface", dork: 'intitle:"VLC media player" "Web Interface"', desc: "VLC streaming web interfaces" },
-  { cat: "Cameras", name: "RTSP Streams", dork: 'inurl:"rtsp://" OR intitle:"Live View" "RTSP"', desc: "Exposed RTSP video streams" },
-  { cat: "Cameras", name: "IoT Dashboards", dork: 'intitle:"Node-RED" OR intitle:"ThingsBoard" inurl:login', desc: "IoT platform dashboards" },
-  { cat: "Cameras", name: "Printer Panels", dork: 'intitle:"HP" "LaserJet" inurl:info_configuration', desc: "Exposed network printer panels" },
-  { cat: "Cameras", name: "SCADA/ICS", dork: 'intitle:"Siemens" "SIMATIC" OR intitle:"Schneider Electric" inurl:login', desc: "Industrial control system interfaces" },
+  { cat: "Cameras", name: "Webcam XP", dork: 'intitle:"webcamXP 5" OR intitle:"webcam 7"', desc: "WebcamXP streaming servers", exp: "Legacy Windows webcam streaming software. Predominantly home users who forgot they installed it. Ethical concerns significant. Limit interactions to fingerprinting." },
+  { cat: "Cameras", name: "Hikvision DVR", dork: 'intitle:"DVRDVS-Webs" OR intitle:"Hikvision"', desc: "Hikvision IP cameras/DVRs", exp: "Hikvision CVE-2021-36260 was a command injection in the web server affecting huge numbers of devices. Many are still unpatched." },
+  { cat: "Cameras", name: "IP Cameras (generic)", dork: 'inurl:"/view/view.shtml" OR inurl:"ViewerFrame?Mode="', desc: "Generic IP camera feeds", exp: "The ViewerFrame?Mode= parameter is used by many no-name ODM cameras that share firmware. Most ship with admin/admin defaults." },
+  { cat: "Cameras", name: "Axis Cameras", dork: 'inurl:"/axis-cgi/" OR intitle:"AXIS" "Network Camera"', desc: "Axis network cameras", exp: "Axis-cgi is the control API path for Axis cameras. Well-built hardware but auth misconfigurations leak live feeds regularly." },
+  { cat: "Cameras", name: "Dahua Cameras", dork: 'intitle:"Dahua" inurl:login', desc: "Dahua IP camera login", exp: "Dahua CVE-2021-33044 and CVE-2021-33045 were auth bypasses affecting many SKUs. Always fingerprint firmware version." },
+  { cat: "Cameras", name: "VLC Web Interface", dork: 'intitle:"VLC media player" "Web Interface"', desc: "VLC streaming web interfaces", exp: "VLC exposes an HTTP control interface on port 8080 when --extraintf=http is used. Surprisingly common in home NAS setups." },
+  { cat: "Cameras", name: "RTSP Streams", dork: 'inurl:"rtsp://" OR intitle:"Live View" "RTSP"', desc: "Exposed RTSP video streams", exp: "RTSP is used by most IP cameras for video streaming. Ports 554 and 8554 dominate. Open-source tools like ffmpeg or VLC can connect." },
+  { cat: "Cameras", name: "IoT Dashboards", dork: 'intitle:"Node-RED" OR intitle:"ThingsBoard" inurl:login', desc: "IoT platform dashboards", exp: "Node-RED in particular runs on many Raspberry Pis. CVE-2021-3223 was an unauth access issue. Often tied to real-world automation." },
+  { cat: "Cameras", name: "Printer Panels", dork: 'intitle:"HP" "LaserJet" inurl:info_configuration', desc: "Exposed network printer panels", exp: "Printers are networked computers. Their web UIs leak configuration, scan history, saved credentials (LDAP, SMB shares). PRET (Printer Exploitation Toolkit) is the canonical assessment tool." },
+  { cat: "Cameras", name: "SCADA/ICS", dork: 'intitle:"Siemens" "SIMATIC" OR intitle:"Schneider Electric" inurl:login', desc: "Industrial control system interfaces", exp: "Never interact with ICS devices without explicit, written authorization. These control real-world processes. Reporting should go via CISA's ICS-CERT or the vendor's PSIRT." },
+  { cat: "Cameras", name: "Home Assistant", dork: 'intitle:"Home Assistant" inurl:"/auth/authorize"', desc: "Home Assistant dashboards", exp: "Home Assistant instances exposed to the internet. Recent CVEs affected the API. Typically home users who configured remote access without a VPN." },
+  { cat: "Cameras", name: "Octoprint", dork: 'intitle:"OctoPrint" "Login" inurl:":5000"', desc: "OctoPrint 3D printer dashboards", exp: "OctoPrint controls 3D printers. Remote access without auth can cause physical damage (printer fires have been documented). Patch level matters." },
+  { cat: "Cameras", name: "Foscam Cameras", dork: 'intitle:"Foscam" inurl:login', desc: "Foscam IP camera logins", exp: "Foscam has had multiple auth bypass CVEs. Consumer cameras often ship with default credentials and slow patch cycles." },
+  { cat: "Cameras", name: "Vivotek Cameras", dork: 'intitle:"Network Camera" "VIVOTEK"', desc: "Vivotek network cameras", exp: "Enterprise-grade IP cameras. Usually better-patched than consumer brands but still exposed when network ACLs are misconfigured." },
 
-  // ADMIN PANELS
-  { cat: "Admin", name: "Django Admin", dork: 'intitle:"Django" inurl:admin', desc: "Django admin panels" },
-  { cat: "Admin", name: "Laravel Debugbar", dork: 'intitle:"Debugbar" "Laravel" OR inurl:"_debugbar"', desc: "Laravel debug panels (info leak)" },
-  { cat: "Admin", name: "Spring Boot Actuator", dork: 'inurl:"/actuator" "env" OR "beans" OR "health"', desc: "Spring Boot actuator endpoints" },
-  { cat: "Admin", name: "Swagger UI", dork: 'intitle:"Swagger UI" inurl:swagger', desc: "Exposed API documentation" },
-  { cat: "Admin", name: "GraphQL Playground", dork: 'intitle:"GraphQL Playground" OR intitle:"GraphiQL"', desc: "Exposed GraphQL explorers" },
-  { cat: "Admin", name: "Docker Registry", dork: 'intitle:"Docker Registry" OR inurl:"/v2/_catalog"', desc: "Open Docker registries" },
-  { cat: "Admin", name: "Kubernetes Dashboard", dork: 'intitle:"Kubernetes Dashboard"', desc: "Exposed K8s dashboards" },
-  { cat: "Admin", name: "Portainer", dork: 'intitle:"Portainer" inurl:login', desc: "Docker Portainer management" },
-  { cat: "Admin", name: "Webmin", dork: 'intitle:"Webmin" inurl:10000', desc: "Webmin server admin panels" },
-  { cat: "Admin", name: "Nagios Monitoring", dork: 'intitle:"Nagios" "Process Information"', desc: "Nagios monitoring dashboards" },
-  { cat: "Admin", name: "Zabbix", dork: 'intitle:"Zabbix" inurl:zabbix/index.php', desc: "Zabbix monitoring login" },
-  { cat: "Admin", name: "Prometheus", dork: 'intitle:"Prometheus" inurl:graph OR inurl:targets', desc: "Exposed Prometheus instances" },
-  { cat: "Admin", name: "Tomcat Manager", dork: 'intitle:"Apache Tomcat" "Manager App" inurl:manager', desc: "Tomcat manager panels" },
-  { cat: "Admin", name: "Solr Admin", dork: 'intitle:"Solr Admin" inurl:solr', desc: "Apache Solr admin interface" },
+  { cat: "Admin", name: "Django Admin", dork: 'intitle:"Django" inurl:admin', desc: "Django admin panels", exp: "Django's /admin/ route is ubiquitous. Unpatched Django has had CVEs (CVE-2021-35042 SQLi). DEBUG=True leaks settings to every 500 page." },
+  { cat: "Admin", name: "Laravel Debugbar", dork: 'intitle:"Debugbar" "Laravel" OR inurl:"_debugbar"', desc: "Laravel debug panels (info leak)", exp: "Debugbar exposes route info, session data, DB queries. Laravel's APP_DEBUG=true in prod is the root cause. It is a full reconnaissance source." },
+  { cat: "Admin", name: "Spring Boot Actuator", dork: 'inurl:"/actuator" "env" OR "beans" OR "health"', desc: "Spring Boot actuator endpoints", exp: "Unauthenticated /actuator/env dumps environment variables including credentials. /actuator/heapdump downloads a full heap dump containing session data and tokens." },
+  { cat: "Admin", name: "Swagger UI", dork: 'intitle:"Swagger UI" inurl:swagger', desc: "Exposed API documentation", exp: "Swagger/OpenAPI UIs map out every endpoint. In a bug-bounty scoped target, these are pure gold. In the wild, often reveal internal-only endpoints accidentally." },
+  { cat: "Admin", name: "GraphQL Playground", dork: 'intitle:"GraphQL Playground" OR intitle:"GraphiQL"', desc: "Exposed GraphQL explorers", exp: "Playground/GraphiQL lets you introspect the entire schema. Introspection should be disabled in production. Enumeration reveals queries, mutations, and type relationships." },
+  { cat: "Admin", name: "Docker Registry", dork: 'intitle:"Docker Registry" OR inurl:"/v2/_catalog"', desc: "Open Docker registries", exp: "The Docker Registry HTTP API v2 at /v2/_catalog lists all repos. Unauth exposure means an attacker can pull internal images, often containing embedded secrets." },
+  { cat: "Admin", name: "Kubernetes Dashboard", dork: 'intitle:"Kubernetes Dashboard"', desc: "Exposed K8s dashboards", exp: "The classic K8s dashboard with anonymous access (CVE-2018-18264) was a common cluster takeover. Modern deployments require bearer tokens but misconfigurations persist." },
+  { cat: "Admin", name: "Portainer", dork: 'intitle:"Portainer" inurl:login', desc: "Docker Portainer management", exp: "Portainer CVE-2022-34310 was a privilege escalation. Exposed instances with default admin/admin are still found in the wild." },
+  { cat: "Admin", name: "Webmin", dork: 'intitle:"Webmin" inurl:10000', desc: "Webmin server admin panels", exp: "Webmin CVE-2019-15107 was a pre-auth backdoor shipped in the release. Many un-updated boxes still run that version." },
+  { cat: "Admin", name: "Nagios Monitoring", dork: 'intitle:"Nagios" "Process Information"', desc: "Nagios monitoring dashboards", exp: "Nagios Core and XI have had multiple CVEs. Monitor configs reveal internal hostnames and service topology." },
+  { cat: "Admin", name: "Zabbix", dork: 'intitle:"Zabbix" inurl:zabbix/index.php', desc: "Zabbix monitoring login", exp: "Zabbix CVE-2022-35229 and CVE-2022-24917 were SQL injection and XSS. Modern patched versions are well-hardened but exposure is still a security finding." },
+  { cat: "Admin", name: "Prometheus", dork: 'intitle:"Prometheus" inurl:graph OR inurl:targets', desc: "Exposed Prometheus instances", exp: "Prometheus /targets and /config leak scrape targets, rule sets, and often authentication config for scraped services. It is a network topology disclosure." },
+  { cat: "Admin", name: "Tomcat Manager", dork: 'intitle:"Apache Tomcat" "Manager App" inurl:manager', desc: "Tomcat manager panels", exp: "Tomcat Manager with weak credentials (tomcat/tomcat, admin/admin) allows WAR file upload, which equals RCE. Also watch for CVE-2020-1938 Ghostcat on AJP." },
+  { cat: "Admin", name: "Solr Admin", dork: 'intitle:"Solr Admin" inurl:solr', desc: "Apache Solr admin interface", exp: "Solr CVE-2019-0193 (Velocity template injection) was widely exploited for crypto mining. Version fingerprinting matters." },
+  { cat: "Admin", name: "HashiCorp Vault UI", dork: 'intitle:"Vault" "Sign in to Vault"', desc: "HashiCorp Vault unsealed UIs", exp: "A sealed Vault is not directly dangerous but an unsealed one with weak auth is a secrets dispensary. The UI login page itself reveals Vault presence for further recon." },
+  { cat: "Admin", name: "HashiCorp Consul", dork: 'intitle:"Consul by HashiCorp" inurl:":8500"', desc: "Consul service mesh UIs", exp: "Consul's default HTTP API on port 8500 is often exposed. Without ACLs enabled, the KV store, service catalog, and node list are all readable." },
+  { cat: "Admin", name: "Rundeck", dork: 'intitle:"Rundeck" "Login" inurl:rundeck', desc: "Rundeck job automation", exp: "Rundeck executes arbitrary SSH commands across infrastructure. Default-credential or weak-credential instances are full-fleet compromise." },
+  { cat: "Admin", name: "AWX / Ansible Tower", dork: 'intitle:"Ansible Tower" OR intitle:"AWX" inurl:login', desc: "Ansible Tower/AWX consoles", exp: "AWX runs Ansible playbooks. Credentials and vault secrets live here. CVE-2023-5189 was an RCE via playbook injection." },
+  { cat: "Admin", name: "Harbor Registry", dork: 'intitle:"Harbor" "Sign In" inurl:harbor', desc: "Harbor container registry", exp: "Harbor CVE-2022-31671 exposed registry credentials. Exposed public Harbor instances with weak auth leak entire internal image sets." },
+  { cat: "Admin", name: "SonarQube", dork: 'intitle:"SonarQube" inurl:sonar', desc: "SonarQube code quality dashboards", exp: "SonarQube scans source code. Anonymous access reveals project structure, code issues, and sometimes the full source. Set force-auth=true." },
+  { cat: "Admin", name: "Gitea Instances", dork: 'intitle:"Sign In - Gitea"', desc: "Self-hosted Gitea forges", exp: "Self-hosted Git forges often host private source. Default install allows public registration unless disabled. Historical CVEs include RCE via git hooks." },
 
-  // ERROR PAGES
-  { cat: "Errors", name: "PHP Errors", dork: '"Fatal error" "on line" filetype:php', desc: "PHP fatal errors with path disclosure" },
-  { cat: "Errors", name: "ASP.NET Errors", dork: '"Server Error in" "Application" "Stack Trace"', desc: "ASP.NET detailed error pages" },
-  { cat: "Errors", name: "Java Stack Traces", dork: '"java.lang" "Exception" "at org" -github', desc: "Java stack traces revealing internals" },
-  { cat: "Errors", name: "Django Debug Mode", dork: 'intitle:"DisallowedHost" OR "DEBUG = True" "Django"', desc: "Django in debug mode" },
-  { cat: "Errors", name: "Laravel Errors", dork: '"Whoops!" "Laravel" "Stack trace"', desc: "Laravel debug error pages" },
-  { cat: "Errors", name: "WordPress Debug", dork: 'inurl:debug.log "PHP" "error" site:', desc: "WordPress debug log files" },
-  { cat: "Errors", name: "MySQL Errors", dork: '"You have an error in your SQL syntax" OR "mysql_fetch"', desc: "SQL error messages (SQL injection indicators)" },
-  { cat: "Errors", name: "Connection Strings Leaked", dork: '"ORA-" "TNS:" OR "connection string" "password"', desc: "Oracle/DB connection errors with creds" },
-  { cat: "Errors", name: "500 Error Pages", dork: 'intitle:"500 Internal Server Error" "server at"', desc: "Internal server errors with info" },
-  { cat: "Errors", name: "403 Listings", dork: 'intitle:"403 Forbidden" "Directory listing"', desc: "Forbidden pages revealing server info" },
+  { cat: "Errors", name: "PHP Errors", dork: '"Fatal error" "on line" filetype:php', desc: "PHP fatal errors with path disclosure", exp: "PHP fatal errors reveal absolute filesystem paths, PHP versions, and sometimes framework versions. Disable display_errors in production php.ini." },
+  { cat: "Errors", name: "ASP.NET Errors", dork: '"Server Error in" "Application" "Stack Trace"', desc: "ASP.NET detailed error pages", exp: "ASP.NET yellow-screen-of-death pages leak stack traces, assembly versions, and sometimes source code snippets. Set customErrors mode='On' in web.config." },
+  { cat: "Errors", name: "Java Stack Traces", dork: '"java.lang" "Exception" "at org" -github', desc: "Java stack traces revealing internals", exp: "Java stack traces leak package structure, dependency versions, and runtime state. Combine with a known CVE to find vulnerable unpatched services." },
+  { cat: "Errors", name: "Django Debug Mode", dork: 'intitle:"DisallowedHost" OR "DEBUG = True" "Django"', desc: "Django in debug mode", exp: "DEBUG=True on Django leaks everything: settings, SQL queries, template locals, installed apps, SECRET_KEY. Any 500 error is an enumeration windfall." },
+  { cat: "Errors", name: "Laravel Errors", dork: '"Whoops!" "Laravel" "Stack trace"', desc: "Laravel debug error pages", exp: "Whoops is the 'friendly' Laravel debug page. It exposes environment variables inline. APP_DEBUG=false is mandatory for production." },
+  { cat: "Errors", name: "WordPress Debug", dork: 'inurl:debug.log "PHP" "error" site:', desc: "WordPress debug log files", exp: "WP_DEBUG_LOG writes errors to wp-content/debug.log. Accidentally indexed, these leak plugin paths and error patterns useful for vulnerability research." },
+  { cat: "Errors", name: "MySQL Errors", dork: '"You have an error in your SQL syntax" OR "mysql_fetch"', desc: "SQL error messages (SQL injection indicators)", exp: "These are smoking-gun SQLi indicators. If you control the input that produces the error, you likely have injection. Use with authorization." },
+  { cat: "Errors", name: "Connection Strings Leaked", dork: '"ORA-" "TNS:" OR "connection string" "password"', desc: "Oracle/DB connection errors with creds", exp: "Oracle TNS errors often include the full connection string. Unusual but high-value." },
+  { cat: "Errors", name: "500 Error Pages", dork: 'intitle:"500 Internal Server Error" "server at"', desc: "Internal server errors with info", exp: "The Apache 500 default page shows 'server at hostname port X' identifying the internal server. Cloud-fronted sites occasionally show origin hostnames here." },
+  { cat: "Errors", name: "403 Listings", dork: 'intitle:"403 Forbidden" "Directory listing"', desc: "Forbidden pages revealing server info", exp: "403 pages confirm a path exists but is blocked. Useful for enumeration: combine with wordlists to find backend paths the server explicitly protects." },
+  { cat: "Errors", name: "Ruby on Rails", dork: '"ActionController::RoutingError" "rails"', desc: "Rails routing error pages", exp: "Rails dev error pages in production leak routes and application structure. config.consider_all_requests_local should be false in production." },
+  { cat: "Errors", name: "Python Tracebacks", dork: '"Traceback (most recent call last)" filetype:txt', desc: "Python exception tracebacks", exp: "Raw Python tracebacks disclose module paths, function names, and framework versions. Flask in debug mode also exposes an interactive shell." },
+  { cat: "Errors", name: "Go Panic Traces", dork: '"goroutine" "panic:" "runtime error"', desc: "Go panic stack traces", exp: "Go panic traces reveal package paths, struct names, and often sensitive values in the frame dump. Use recover() and log externally." },
+  { cat: "Errors", name: "Node.js Errors", dork: '"at Object.<anonymous>" "at Module._compile" "Error:"', desc: "Node.js stack traces", exp: "Node stack traces leak npm package versions, file paths, and dependency structure. Useful for known-CVE fingerprinting." },
 
-  // JUICY INFO
-  { cat: "Juicy", name: "Email Lists", dork: 'filetype:xls OR filetype:csv "email" "@" "phone"', desc: "Spreadsheets with email + phone data" },
-  { cat: "Juicy", name: "Financial Reports", dork: 'filetype:pdf "confidential" "financial" OR "revenue" OR "salary"', desc: "Confidential financial documents" },
-  { cat: "Juicy", name: "Employee Directories", dork: 'filetype:xlsx "employee" "phone" "email" "department"', desc: "Internal employee directories" },
-  { cat: "Juicy", name: "Network Diagrams", dork: 'filetype:pdf OR filetype:vsd "network diagram" OR "topology"', desc: "Network architecture documents" },
-  { cat: "Juicy", name: "Penetration Test Reports", dork: 'filetype:pdf "penetration test" "executive summary" "findings"', desc: "Published pentest reports" },
-  { cat: "Juicy", name: "Incident Response Plans", dork: 'filetype:pdf "incident response" "playbook" OR "procedure"', desc: "IR plans and playbooks" },
-  { cat: "Juicy", name: "Board Meeting Minutes", dork: 'filetype:pdf "board meeting" "minutes" "confidential"', desc: "Confidential board meeting notes" },
-  { cat: "Juicy", name: "API Keys in Code", dork: '"api_key" OR "apikey" "AIza" OR "sk-" OR "ghp_" -site:github.com', desc: "Leaked API keys outside GitHub" },
-  { cat: "Juicy", name: "Internal Wikis", dork: 'intitle:"Confluence" OR intitle:"MediaWiki" "internal" -site:atlassian.com', desc: "Exposed internal wikis" },
-  { cat: "Juicy", name: "Resumes with SSN", dork: 'filetype:pdf "social security" OR "SSN" "resume"', desc: "Resumes with social security numbers" },
-  { cat: "Juicy", name: "Medical Records", dork: 'filetype:pdf "patient" "diagnosis" "medical record" -example', desc: "Exposed medical records" },
-  { cat: "Juicy", name: "Legal Documents", dork: 'filetype:pdf "attorney-client" OR "privileged" "confidential"', desc: "Privileged legal documents" },
-  { cat: "Juicy", name: "Source Code", dork: 'filetype:py OR filetype:rb "password" "def " "import" -github', desc: "Source code with hardcoded passwords" },
-  { cat: "Juicy", name: "Pastebin Dumps", dork: 'site:pastebin.com "password" "email" "@"', desc: "Pastebin credential dumps" },
+  { cat: "Juicy", name: "Email Lists", dork: 'filetype:xls OR filetype:csv "email" "@" "phone"', desc: "Spreadsheets with email + phone data", exp: "Marketing exports, CRM dumps, event attendee lists. Widely indexed due to casual sharing. GDPR/CCPA territory for EU/US orgs." },
+  { cat: "Juicy", name: "Financial Reports", dork: 'filetype:pdf "confidential" "financial" OR "revenue" OR "salary"', desc: "Confidential financial documents", exp: "Internal financial reports marked confidential yet indexed. Often the result of a cloud storage share being flipped from 'internal only' to 'anyone with link' then indexed." },
+  { cat: "Juicy", name: "Employee Directories", dork: 'filetype:xlsx "employee" "phone" "email" "department"', desc: "Internal employee directories", exp: "Employee rosters with contact info. Phishing gold. Modern directories live in SSO systems but legacy Excel exports persist on internal shares that slip public." },
+  { cat: "Juicy", name: "Network Diagrams", dork: 'filetype:pdf OR filetype:vsd "network diagram" OR "topology"', desc: "Network architecture documents", exp: "Visio diagrams and PDF network topologies reveal internal IP ranges, firewall rules, VLANs, and vendor equipment. Invaluable for adversary planning, hence invaluable for defenders to prevent leaking." },
+  { cat: "Juicy", name: "Penetration Test Reports", dork: 'filetype:pdf "penetration test" "executive summary" "findings"', desc: "Published pentest reports", exp: "Pentest reports published publicly (sometimes intentionally for trust, sometimes not). Reveal attack paths, patched or unpatched findings, internal hostnames." },
+  { cat: "Juicy", name: "Incident Response Plans", dork: 'filetype:pdf "incident response" "playbook" OR "procedure"', desc: "IR plans and playbooks", exp: "IR plans reveal detection gaps and response playbooks. Attackers use these to time actions below detection thresholds." },
+  { cat: "Juicy", name: "Board Meeting Minutes", dork: 'filetype:pdf "board meeting" "minutes" "confidential"', desc: "Confidential board meeting notes", exp: "Board minutes discuss strategic direction, acquisitions, legal risks. Leaked minutes are material for insider-trading concerns and competitive intelligence." },
+  { cat: "Juicy", name: "API Keys in Code", dork: '"api_key" OR "apikey" "AIza" OR "sk-" OR "ghp_" -site:github.com', desc: "Leaked API keys outside GitHub", exp: "AIza = Google API key prefix. sk- = Stripe or OpenAI secret key. ghp_ = GitHub personal access token. -site:github.com filters out the noisy source." },
+  { cat: "Juicy", name: "Internal Wikis", dork: 'intitle:"Confluence" OR intitle:"MediaWiki" "internal" -site:atlassian.com', desc: "Exposed internal wikis", exp: "Confluence and MediaWiki instances set to public accidentally. Confluence CVE-2022-26134 and CVE-2023-22515 were widely exploited. Data mine plus active-CVE surface." },
+  { cat: "Juicy", name: "Resumes with SSN", dork: 'filetype:pdf "social security" OR "SSN" "resume"', desc: "Resumes with social security numbers", exp: "Old-school resumes included SSN. Still found indexed on academic and personal sites. Reporting to the individual through the site owner is the right move." },
+  { cat: "Juicy", name: "Medical Records", dork: 'filetype:pdf "patient" "diagnosis" "medical record" -example', desc: "Exposed medical records", exp: "HIPAA territory in the US. Reports via HHS OCR if the leaking entity is a covered entity. Do not retain the documents beyond what is needed to report." },
+  { cat: "Juicy", name: "Legal Documents", dork: 'filetype:pdf "attorney-client" OR "privileged" "confidential"', desc: "Privileged legal documents", exp: "Privileged documents publicly indexed. Leakage often occurs via cloud shares or misconfigured document management systems. Report via the responsible counsel." },
+  { cat: "Juicy", name: "Source Code", dork: 'filetype:py OR filetype:rb "password" "def " "import" -github', desc: "Source code with hardcoded passwords", exp: "Python and Ruby code with embedded credentials indexed outside GitHub. Often found on personal sites, university pages, and legacy hosting." },
+  { cat: "Juicy", name: "Pastebin Dumps", dork: 'site:pastebin.com "password" "email" "@"', desc: "Pastebin credential dumps", exp: "Pastebin has been a primary credential-dump venue since 2009. Modern operators also use ghostbin, paste.ee, and rentry. Monitor your org's domain for leaked creds." },
+  { cat: "Juicy", name: "Zoom Cloud Recordings", dork: 'site:zoom.us "Cloud Recording" OR "Meeting Recording"', desc: "Public Zoom cloud recordings", exp: "Public Zoom recordings with predictable or leaked links. Many early-pandemic recordings remain public indefinitely. Content ranges from benign to confidential all-hands." },
+  { cat: "Juicy", name: "Slack Export JSON", dork: 'filetype:json "slack_export" OR "channels.json" "messages"', desc: "Slack workspace exports", exp: "Slack workspace exports dumped publicly. Rich context on org culture, inter-team communications, and linked credentials. Reporting via the company's security.txt." },
+  { cat: "Juicy", name: "HR Policy Documents", dork: 'filetype:pdf "human resources" "confidential" "policy"', desc: "Internal HR policy documents", exp: "HR policy docs are not automatically sensitive but often leak org structure, salary bands, and grievance processes." },
+  { cat: "Juicy", name: "Grant Applications", dork: 'filetype:pdf "grant application" "budget" "principal investigator"', desc: "Academic grant applications", exp: "Grant applications reveal PI names, budget projections, unpublished research directions, and internal strategy. Rare but high-signal." },
 
-  // VULNERABLE TECH
-  { cat: "Vulns", name: "Apache Struts", dork: 'inurl:".action" "Struts Problem Report"', desc: "Apache Struts error pages (RCE risk)" },
-  { cat: "Vulns", name: "Old IIS Servers", dork: '"Microsoft-IIS/6.0" OR "Microsoft-IIS/7.0"', desc: "Legacy IIS servers (known CVEs)" },
-  { cat: "Vulns", name: "PHP Info Pages", dork: 'intitle:"phpinfo()" "PHP Version"', desc: "phpinfo() pages leaking server config" },
-  { cat: "Vulns", name: "SharePoint", dork: 'inurl:"/_layouts/" "SharePoint"', desc: "Exposed SharePoint installations" },
-  { cat: "Vulns", name: "Telerik UI", dork: '"Telerik.Web.UI.WebResource.axd" OR "Telerik.Web.UI.DialogHandler.aspx"', desc: "Telerik UI (known deserialization vulns)" },
-  { cat: "Vulns", name: "JBoss Console", dork: 'intitle:"JBoss Management" OR inurl:"/jmx-console/"', desc: "JBoss management console (RCE risk)" },
-  { cat: "Vulns", name: "ColdFusion Admin", dork: 'inurl:"/CFIDE/administrator/"', desc: "Adobe ColdFusion admin panel" },
-  { cat: "Vulns", name: "Exposed Git Repos", dork: 'inurl:"/.git/config" "repositoryformatversion"', desc: "Exposed .git/config (source code leak)" },
-  { cat: "Vulns", name: "Server-Status", dork: 'inurl:"/server-status" "Apache Server Status"', desc: "Apache server-status page" },
-  { cat: "Vulns", name: "Open Redirects", dork: 'inurl:"redirect=" OR inurl:"url=" OR inurl:"next=" "http"', desc: "Potential open redirect parameters" },
+  { cat: "Vulns", name: "Apache Struts", dork: 'inurl:".action" "Struts Problem Report"', desc: "Apache Struts error pages (RCE risk)", exp: "Apache Struts had the CVE-2017-5638 OGNL RCE that contributed to the Equifax breach. Any exposed Struts-backed app should be patched urgently." },
+  { cat: "Vulns", name: "Old IIS Servers", dork: '"Microsoft-IIS/6.0" OR "Microsoft-IIS/7.0"', desc: "Legacy IIS servers (known CVEs)", exp: "IIS 6.0 and 7.0 are out of support and have multiple RCEs (CVE-2017-7269 IIS 6.0 WebDAV). Exposed instances indicate severely dated infrastructure." },
+  { cat: "Vulns", name: "PHP Info Pages", dork: 'intitle:"phpinfo()" "PHP Version"', desc: "phpinfo() pages leaking server config", exp: "phpinfo() output leaks every PHP setting, loaded modules, and environment variables. A debug tool accidentally left in production. Always a reportable finding." },
+  { cat: "Vulns", name: "SharePoint", dork: 'inurl:"/_layouts/" "SharePoint"', desc: "Exposed SharePoint installations", exp: "SharePoint ToolShell (CVE-2025-53770 family) was mass-exploited in 2025. On-prem SharePoint requires aggressive patching." },
+  { cat: "Vulns", name: "Telerik UI", dork: '"Telerik.Web.UI.WebResource.axd" OR "Telerik.Web.UI.DialogHandler.aspx"', desc: "Telerik UI (known deserialization vulns)", exp: "Telerik UI CVE-2019-18935 deserialization was added to CISA KEV and widely exploited. Any Telerik presence is a version-check priority." },
+  { cat: "Vulns", name: "JBoss Console", dork: 'intitle:"JBoss Management" OR inurl:"/jmx-console/"', desc: "JBoss management console (RCE risk)", exp: "JBoss jmx-console has been exploited via MBean invocations to achieve RCE for over a decade. Legacy and still found." },
+  { cat: "Vulns", name: "ColdFusion Admin", dork: 'inurl:"/CFIDE/administrator/"', desc: "Adobe ColdFusion admin panel", exp: "ColdFusion CVE-2023-26360 was a pre-auth RCE added to CISA KEV. The /CFIDE/administrator/ path is the canonical admin console." },
+  { cat: "Vulns", name: "Exposed Git Repos", dork: 'inurl:"/.git/config" "repositoryformatversion"', desc: "Exposed .git/config (source code leak)", exp: "A web-readable .git/config confirms the full .git directory is served. Tools like git-dumper reconstruct the repo locally. Treat as source code disclosure." },
+  { cat: "Vulns", name: "Server-Status", dork: 'inurl:"/server-status" "Apache Server Status"', desc: "Apache server-status page", exp: "Apache mod_status exposes active requests including URLs, IPs, and sometimes session tokens in query strings. Restrict to localhost-only in httpd.conf." },
+  { cat: "Vulns", name: "Open Redirects", dork: 'inurl:"redirect=" OR inurl:"url=" OR inurl:"next=" "http"', desc: "Potential open redirect parameters", exp: "Open redirects are often the missing piece in phishing chains or OAuth attacks. The classic params are redirect=, url=, next=, return=." },
+  { cat: "Vulns", name: "Log4Shell Indicators", dork: '"jndi:" OR "ldap://" "log4j"', desc: "Log4Shell exploitation leftovers", exp: "CVE-2021-44228 (Log4Shell) exploitation traces. Finding jndi:ldap:// patterns in logs or exposed sites indicates either an exploit attempt archive or a vulnerable app that echoed it back." },
+  { cat: "Vulns", name: "Spring4Shell", dork: '"org.springframework" "ClassLoader" "runtime"', desc: "Spring Framework RCE indicators", exp: "CVE-2022-22965 (Spring4Shell) was a class-loader manipulation RCE. Look for stack traces showing the org.springframework.beans.BeanWrapperImpl path." },
+  { cat: "Vulns", name: "Exchange ProxyShell", dork: 'inurl:"autodiscover.json" "Microsoft-Exchange"', desc: "Exchange ProxyShell footprint", exp: "CVE-2021-34473 and related ProxyShell chain. autodiscover.json PowerShell remoting is the exploitation entry. Any internet-facing on-prem Exchange needs aggressive hardening." },
+  { cat: "Vulns", name: "Ivanti Connect Secure", dork: 'intitle:"Ivanti Connect Secure" OR intitle:"Pulse Secure"', desc: "Ivanti Connect Secure VPN", exp: "CVE-2023-46805 and CVE-2024-21887 were chained for unauth RCE with widespread exploitation. Patch cadence is critical." },
+  { cat: "Vulns", name: "Jira RCE", dork: 'intitle:"Jira" "AtlassianRefResolver" "class"', desc: "Jira CVE-2022-26134 indicators", exp: "Jira CVE-2022-26134 Object-Graph Navigation Language (OGNL) injection was a pre-auth RCE. Version identification via the HTML footer is the first recon step." },
+  { cat: "Vulns", name: "F5 BIG-IP iControl", dork: 'inurl:"/mgmt/tm/util/bash"', desc: "F5 BIG-IP iControl REST", exp: "F5 iControl REST CVE-2022-1388 was a pre-auth RCE. Any exposed /mgmt/tm/ path on F5 gear requires current patch level check." },
+
+  { cat: "OSINT", name: "LinkedIn Profile by Role", dork: 'site:linkedin.com/in/ "current role" OR "currently working"', desc: "LinkedIn profiles by job", exp: "OSINT for people enumeration at a target org. Chain with site:target.com or a known employee name. Keep within lawful, authorized use." },
+  { cat: "OSINT", name: "GitHub User by Company", dork: 'site:github.com "company": "example.com" OR "acme inc"', desc: "Finding engineers at a target", exp: "GitHub user profiles often list employer. Useful for recon leading to potential supply-chain or phishing vectors. Stay within authorized engagement scope." },
+  { cat: "OSINT", name: "Resume with Full Name", dork: 'filetype:pdf "resume" OR "curriculum vitae" "phone" "email"', desc: "Public resumes/CVs", exp: "Public resumes surface employment history, contact info, and sometimes home addresses. OSINT for social engineering. Only use with proper authorization." },
+  { cat: "OSINT", name: "Public Conference Decks", dork: 'filetype:pdf OR filetype:pptx "defcon" OR "black hat" "speaker"', desc: "Conference speaker slide decks", exp: "Conference talk slides reveal infrastructure details, attack chains, research-in-progress. Great for research continuity and keeping pace with a field." },
+  { cat: "OSINT", name: "Academic Papers", dork: 'filetype:pdf "abstract" "keywords" "references" site:.edu', desc: "Academic research papers", exp: "Uses site:.edu to narrow to university domains. Useful for literature review and tracking research programs at specific institutions." },
+  { cat: "OSINT", name: "Court Records", dork: 'filetype:pdf "case no" OR "docket" "plaintiff" "defendant"', desc: "Public court records", exp: "Many court systems publish filings online. Search by case number, party name, or legal topic. Know the jurisdiction and access rules before relying on findings." },
+  { cat: "OSINT", name: "Government Tenders", dork: 'filetype:pdf "RFP" OR "tender" "contract" site:.gov', desc: "Government procurement documents", exp: "Request-for-proposal docs on .gov sites disclose upcoming tech purchases, incumbent vendors, and technical specifications. Business intelligence with legal boundaries." },
+  { cat: "OSINT", name: "Press Releases by Company", dork: 'site:prnewswire.com OR site:businesswire.com "acme corp"', desc: "Corporate press releases", exp: "Aggregators index corporate press releases back years. Useful for tracking M&A activity, leadership changes, and technology announcements." },
+  { cat: "OSINT", name: "Public Phone Directory", dork: 'filetype:pdf "phone directory" OR "staff directory" "ext."', desc: "Organizational phone directories", exp: "Internal phone directories leaked publicly. Rich for social engineering targeting but also useful for legitimate contact discovery." },
+  { cat: "OSINT", name: "Shodan Honeypot Avoidance", dork: 'intitle:"Honeypot" OR "decoy" intext:"suspicious"', desc: "Marked honeypot systems", exp: "Some honeypot deployments self-identify (intentionally or not). Useful to filter out of recon targets when you want real systems." },
+
+  { cat: "BugBounty", name: "Subdomain Takeover Candidates", dork: 'site:*.example.com -site:www.example.com', desc: "Subdomain enumeration via Google", exp: "The site:*.example.com pattern asks Google for all indexed subdomains. Combine with subzy or subjack to find takeover candidates pointing to dangling cloud resources." },
+  { cat: "BugBounty", name: "Staging / Test Domains", dork: 'site:stage.example.com OR site:test.example.com OR site:dev.example.com', desc: "Staging environments", exp: "Pre-production environments often have weaker auth, unfinished features, and debug modes. In-scope bug bounty targets explicitly including *.example.com cover these." },
+  { cat: "BugBounty", name: "API Documentation", dork: 'site:example.com "openapi" OR "swagger" OR "api documentation"', desc: "Hidden API docs", exp: "Internal-but-indexed API docs (Swagger, Redoc, ReadMe.io) reveal endpoints not in the public developer portal. Prime bug-bounty finding." },
+  { cat: "BugBounty", name: "GraphQL Endpoints", dork: 'site:example.com inurl:"/graphql" OR inurl:"/api/graphql"', desc: "Exposed GraphQL endpoints", exp: "GraphQL endpoints often allow introspection even when the playground is disabled. Send __schema queries to enumerate types." },
+  { cat: "BugBounty", name: "JavaScript Sourcemaps", dork: 'site:example.com filetype:map "sourceRoot"', desc: "JS sourcemap files", exp: "Sourcemaps reverse minified JS back to readable code with file paths. Reveals internal API endpoints, helper utility structure, and sometimes hardcoded tokens." },
+  { cat: "BugBounty", name: "Exposed /debug or /test", dork: 'site:example.com inurl:debug OR inurl:test OR inurl:internal', desc: "Internal debug endpoints", exp: "Debug and test paths often bypass auth, expose stack traces, or enable privileged actions. Common in Spring, Rails, and Flask apps." },
+  { cat: "BugBounty", name: "AWS Lambda Functions", dork: 'site:*.execute-api.us-east-1.amazonaws.com OR site:*.lambda-url.us-east-1.on.aws', desc: "Exposed AWS Lambda endpoints", exp: "API Gateway and Lambda Function URLs. Many are in scope for bug bounties targeting AWS-based apps. Watch for unauthenticated function paths." },
+  { cat: "BugBounty", name: "WAF Bypass Candidates", dork: 'site:example.com inurl:"?debug=" OR inurl:"?admin=" OR inurl:"?secret="', desc: "Interesting URL parameters", exp: "Unusual query parameters discovered via Google indicate features most users never hit. Interesting for auth bypass research and parameter pollution." },
+  { cat: "BugBounty", name: "Deprecated API Versions", dork: 'site:api.example.com inurl:"/v1/" OR inurl:"/v2/" OR inurl:"/api/v"', desc: "Old API version endpoints", exp: "Deprecated API versions often lack the security controls added in current versions. IDOR and weak auth are common." },
+  { cat: "BugBounty", name: "Admin Subdomains", dork: 'site:admin.example.com OR site:portal.example.com OR site:internal.example.com', desc: "Admin-labeled subdomains", exp: "Subdomains with admin/portal/internal in the name signal privileged interfaces. Often the first target after initial recon." },
+
+  { cat: "CVE", name: "Confluence CVE-2023-22515", dork: 'intitle:"Confluence" "Log In" inurl:setup', desc: "Atlassian Confluence privilege escalation", exp: "CVE-2023-22515 allowed unauth creation of admin users via /setup/*.action paths. On CISA KEV. Check version via footer or /rest/api/latest/serverInfo." },
+  { cat: "CVE", name: "MOVEit Transfer CVE-2023-34362", dork: 'intitle:"MOVEit Transfer" inurl:"/human.aspx"', desc: "MOVEit Transfer SQL injection (Clop)", exp: "The Clop ransomware MOVEit campaign affected hundreds of orgs in 2023. Any internet-facing MOVEit instance requires current patch level and log review." },
+  { cat: "CVE", name: "Fortinet SSL-VPN Creds", dork: 'inurl:"/remote/fgt_lang" OR inurl:"/remote/login?lang="', desc: "FortiGate CVE-2018-13379 credential leak", exp: "CVE-2018-13379 allowed unauth path traversal to read VPN credentials. Even years later, leaked credentials from this CVE still appear on dark-web markets." },
+  { cat: "CVE", name: "Citrix Bleed CVE-2023-4966", dork: 'intitle:"Citrix Gateway" OR intitle:"NetScaler"', desc: "Citrix NetScaler session-token leak", exp: "CVE-2023-4966 (Citrix Bleed) allowed session-token extraction enabling MFA bypass. Mass-exploited by LockBit in late 2023." },
+  { cat: "CVE", name: "Exchange ProxyNotShell", dork: 'inurl:"autodiscover/autodiscover.json" "Microsoft-Exchange"', desc: "Exchange CVE-2022-41040 / CVE-2022-41082", exp: "ProxyNotShell chain on-prem Exchange. CVE-2022-41040 SSRF + CVE-2022-41082 RCE. Patched in November 2022 but exposure remains in un-updated orgs." },
+  { cat: "CVE", name: "ScreenConnect CVE-2024-1709", dork: 'intitle:"ScreenConnect" OR intitle:"ConnectWise Control"', desc: "ScreenConnect auth bypass", exp: "CVE-2024-1709 was an auth-bypass + path-traversal chain that gave unauth admin. Exploited within days by multiple ransomware crews." },
+
+  { cat: "GovEdu", name: ".gov Exposed Documents", dork: 'site:.gov filetype:pdf "confidential" OR "for official use only"', desc: ".gov FOUO/confidential documents", exp: "Controlled unclassified information (CUI) marked FOUO sometimes appears on public-facing .gov sites. Report to the agency's OIG or via the NSA cybersecurity program." },
+  { cat: "GovEdu", name: ".edu Database Dumps", dork: 'site:.edu filetype:sql OR filetype:db "INSERT INTO"', desc: "University DB dumps", exp: "University research groups and student-org sites often run their own infra with minimal oversight. SQL dumps appear in project archives and forgotten backup directories." },
+  { cat: "GovEdu", name: ".mil Public Documents", dork: 'site:.mil filetype:pdf "training" OR "manual"', desc: ".mil public training docs", exp: "DoD and service branches publish unclassified training material openly. Useful reference for defender training and threat modeling." },
+  { cat: "GovEdu", name: "University Research Data", dork: 'site:.edu "dataset" OR "research data" filetype:csv', desc: "University research datasets", exp: "Open research data is often legitimate but occasionally contains PII (survey data, medical records). Treat with care and consult the IRB when in doubt." },
+  { cat: "GovEdu", name: "Government RFP/RFQ", dork: 'site:.gov filetype:pdf "RFP" OR "RFQ" "deadline"', desc: "Federal procurement documents", exp: "RFP and RFQ docs reveal upcoming federal tech investments. Useful for defense-industrial competitive intelligence and legitimate contracting research." },
+  { cat: "GovEdu", name: "State Emergency Plans", dork: 'site:.gov filetype:pdf "emergency operations plan" OR "continuity"', desc: "State/local emergency plans", exp: "Emergency operations plans detail critical infrastructure dependencies. Usually intentionally public for transparency but reveal systemic weaknesses to sophisticated adversaries." },
 ];
 
 const categories = [
@@ -383,17 +538,27 @@ const categories = [
   { id: "Errors", name: "Error Pages", icon: "&#9888;" },
   { id: "Juicy", name: "Juicy Info", icon: "&#127855;" },
   { id: "Vulns", name: "Vulnerable Tech", icon: "&#128027;" },
+  { id: "OSINT", name: "OSINT / Recon", icon: "&#128269;" },
+  { id: "BugBounty", name: "Bug Bounty", icon: "&#128029;" },
+  { id: "CVE", name: "CVE Fingerprints", icon: "&#128273;" },
+  { id: "GovEdu", name: "Gov / Edu", icon: "&#127891;" },
+  { id: "custom", name: "Custom (AI)", icon: "&#10024;" },
 ];
 
-// ── Escaping ──
+let customTemplates = JSON.parse(localStorage.getItem("stinger-custom") || "[]");
+
+function allTemplates() { return [...templates, ...customTemplates]; }
+
 function esc(s) { return s ? String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;") : ""; }
 
-// ── Render sidebar ──
 function renderSidebar() {
   const el = document.getElementById("sidebar");
   let html = '<div class="sec-label">Categories</div>';
   for (const c of categories) {
-    const count = c.id === "all" ? templates.length : templates.filter(t => t.cat === c.id).length;
+    let count;
+    if (c.id === "all") count = allTemplates().length;
+    else if (c.id === "custom") count = customTemplates.length;
+    else count = templates.filter(t => t.cat === c.id).length;
     html += `<div class="cat-item ${activeCat === c.id ? "active" : ""}" onclick="selectCat('${c.id}')">
       <span>${c.icon}</span> ${esc(c.name)} <span class="cnt">${count}</span>
     </div>`;
@@ -401,7 +566,6 @@ function renderSidebar() {
   el.innerHTML = html;
 }
 
-// ── Render operators ──
 function renderOperators() {
   const el = document.getElementById("op-bar");
   el.innerHTML = operators.map(o =>
@@ -411,35 +575,56 @@ function renderOperators() {
   ).join("");
 }
 
-// ── Render templates ──
 function renderTemplates() {
   const filter = (document.getElementById("tpl-filter")?.value || "").toLowerCase();
   const el = document.getElementById("tpl-grid");
-  let filtered = templates;
-  if (activeCat !== "all") filtered = filtered.filter(t => t.cat === activeCat);
+  let filtered;
+  if (activeCat === "custom") filtered = customTemplates;
+  else if (activeCat === "all") filtered = allTemplates();
+  else filtered = templates.filter(t => t.cat === activeCat);
+
   if (filter) filtered = filtered.filter(t =>
-    t.name.toLowerCase().includes(filter) || t.dork.toLowerCase().includes(filter) || t.desc.toLowerCase().includes(filter)
+    t.name.toLowerCase().includes(filter) ||
+    t.dork.toLowerCase().includes(filter) ||
+    t.desc.toLowerCase().includes(filter) ||
+    (t.exp || "").toLowerCase().includes(filter)
   );
 
   if (filtered.length === 0) {
     el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--fg-muted)">No templates match your search.</div>';
+    document.getElementById("tpl-filter").placeholder = `Search ${allTemplates().length} dork templates...`;
     return;
   }
+  document.getElementById("tpl-filter").placeholder = `Search ${allTemplates().length} dork templates...`;
 
-  el.innerHTML = filtered.map(t => {
+  el.innerHTML = filtered.map((t, i) => {
+    const idKey = `${t.cat}-${i}-${t.name}`.replace(/[^a-z0-9]/gi, "");
     const dork = target ? `site:${target} ${t.dork}` : t.dork;
-    return `<div class="tpl-card" onclick="loadTemplate(\`${esc(t.dork).replace(/`/g,"\\`")}\`)">
+    const expOpen = expandedExplanations.has(idKey);
+    const expHtml = t.exp
+      ? `<div class="tpl-card-exp ${expOpen ? 'open' : ''}" id="exp-${idKey}">
+          <strong>How it works</strong>${esc(t.exp)}
+        </div>`
+      : '';
+    return `<div class="tpl-card">
       <div class="tpl-card-top">
-        <span class="tpl-card-name">${esc(t.name)}</span>
+        <span class="tpl-card-name" onclick="loadTemplate(\`${esc(t.dork).replace(/`/g,"\\`")}\`)">${esc(t.name)}</span>
         <span class="tpl-card-cat">${esc(t.cat)}</span>
       </div>
-      <div class="tpl-card-dork">${highlightDork(esc(dork))}</div>
+      <div class="tpl-card-dork" onclick="loadTemplate(\`${esc(t.dork).replace(/`/g,"\\`")}\`)">${highlightDork(esc(dork))}</div>
       <div class="tpl-card-desc">${esc(t.desc)}</div>
+      ${t.exp ? `<button class="tpl-card-toggle" onclick="toggleExp('${idKey}')">${expOpen ? '▲ Hide' : '▼ Learn more'}</button>` : ''}
+      ${expHtml}
     </div>`;
   }).join("");
 }
 
-// ── Render history ──
+function toggleExp(idKey) {
+  if (expandedExplanations.has(idKey)) expandedExplanations.delete(idKey);
+  else expandedExplanations.add(idKey);
+  renderTemplates();
+}
+
 function renderHistory() {
   const el = document.getElementById("hist-list");
   if (history.length === 0) {
@@ -454,7 +639,6 @@ function renderHistory() {
   ).join("");
 }
 
-// ── Syntax highlighting ──
 function highlightDork(text) {
   return text
     .replace(/(site:|inurl:|intitle:|intext:|filetype:|ext:|cache:|related:|info:|allinurl:|allintitle:|allintext:)/g, '<span style="color:var(--amber);font-weight:600">$1</span>')
@@ -463,27 +647,16 @@ function highlightDork(text) {
     .replace(/(&quot;[^&]*&quot;)/g, '<span style="color:var(--green)">$1</span>');
 }
 
-// ── Actions ──
-function selectCat(id) {
-  activeCat = id;
-  renderSidebar();
-  renderTemplates();
-}
+function selectCat(id) { activeCat = id; renderSidebar(); renderTemplates(); }
 
 function insertOp(op) {
   const preview = document.getElementById("query-preview");
   const current = preview.textContent;
-  if (op === '""') {
-    query = current + ' ""';
-  } else if (op === "AROUND()") {
-    query = current + " AROUND(3) ";
-  } else {
-    query = current + (current ? " " : "") + op;
-  }
+  if (op === '""') query = current + ' ""';
+  else if (op === "AROUND()") query = current + " AROUND(3) ";
+  else query = current + (current ? " " : "") + op;
   preview.textContent = query;
-  highlightPreview();
   preview.focus();
-  // Move cursor to end
   const range = document.createRange();
   range.selectNodeContents(preview);
   range.collapse(false);
@@ -495,43 +668,24 @@ function insertOp(op) {
 function loadTemplate(dork) {
   query = target ? `site:${target} ${dork}` : dork;
   document.getElementById("query-preview").textContent = query;
-  highlightPreview();
 }
 
 function loadQuery(q) {
   query = q;
   document.getElementById("query-preview").textContent = query;
-  highlightPreview();
 }
 
-function onQueryEdit() {
-  query = document.getElementById("query-preview").textContent;
-}
-
-function onQueryKey(e) {
-  if (e.ctrlKey && e.key === "Enter") { e.preventDefault(); executeSearch(); }
-}
-
-function onTargetChange() {
-  target = document.getElementById("target").value.trim();
-  renderTemplates();
-}
-
-function highlightPreview() {
-  const el = document.getElementById("query-preview");
-  // We'll just keep it as plain text for editability
-  // Highlighting in contenteditable is complex; keep simple
-}
+function onQueryEdit() { query = document.getElementById("query-preview").textContent; }
+function onQueryKey(e) { if (e.ctrlKey && e.key === "Enter") { e.preventDefault(); executeSearch(); } }
+function onTargetChange() { target = document.getElementById("target").value.trim(); renderTemplates(); }
 
 function executeSearch() {
   const q = document.getElementById("query-preview").textContent.trim();
   if (!q) return;
-  // Add to history
   history.unshift({ q, t: Date.now() });
   if (history.length > 100) history = history.slice(0, 100);
   localStorage.setItem("stinger-history", JSON.stringify(history));
   renderHistory();
-  // Open Google
   window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, "_blank");
 }
 
@@ -552,11 +706,15 @@ function clearHistory() {
 }
 
 function exportTemplates() {
-  let filtered = templates;
-  if (activeCat !== "all") filtered = filtered.filter(t => t.cat === activeCat);
+  let filtered;
+  if (activeCat === "custom") filtered = customTemplates;
+  else if (activeCat === "all") filtered = allTemplates();
+  else filtered = templates.filter(t => t.cat === activeCat);
+
   const text = filtered.map(t => {
     const dork = target ? `site:${target} ${t.dork}` : t.dork;
-    return `# ${t.name} [${t.cat}]\n${dork}\n# ${t.desc}\n`;
+    const exp = t.exp ? `\n# Explanation: ${t.exp}\n` : "\n";
+    return `# ${t.name} [${t.cat}]\n${dork}\n# ${t.desc}${exp}`;
   }).join("\n");
   const blob = new Blob([text], { type: "text/plain" });
   const a = document.createElement("a");
@@ -576,13 +734,166 @@ function exportHistory() {
 
 function filterTemplates() { renderTemplates(); }
 
-// ── Init ──
+function openAiModal() {
+  const key = localStorage.getItem("stinger-anthropic-key");
+  document.getElementById("ai-no-key").style.display = key ? "none" : "block";
+  document.getElementById("ai-with-key").style.display = key ? "block" : "none";
+  document.getElementById("ai-gen-btn").style.display = key ? "inline-flex" : "none";
+  document.getElementById("ai-modal").classList.add("open");
+  if (key) setTimeout(() => document.getElementById("ai-prompt").focus(), 80);
+}
+
+function closeAiModal() {
+  document.getElementById("ai-modal").classList.remove("open");
+  document.getElementById("ai-output").innerHTML = "";
+}
+
+function openSettingsModal() {
+  const key = localStorage.getItem("stinger-anthropic-key") || "";
+  const model = localStorage.getItem("stinger-ai-model") || "claude-haiku-4-5-20251001";
+  document.getElementById("anthropic-key").value = key;
+  document.getElementById("ai-model").value = model;
+  document.getElementById("settings-modal").classList.add("open");
+}
+
+function closeSettingsModal() {
+  document.getElementById("settings-modal").classList.remove("open");
+}
+
+function saveSettings() {
+  const key = document.getElementById("anthropic-key").value.trim();
+  const model = document.getElementById("ai-model").value;
+  if (key) localStorage.setItem("stinger-anthropic-key", key);
+  else localStorage.removeItem("stinger-anthropic-key");
+  localStorage.setItem("stinger-ai-model", model);
+  closeSettingsModal();
+}
+
+function clearKey() {
+  localStorage.removeItem("stinger-anthropic-key");
+  document.getElementById("anthropic-key").value = "";
+}
+
+async function generateDork() {
+  const prompt = document.getElementById("ai-prompt").value.trim();
+  if (!prompt) return;
+  const key = localStorage.getItem("stinger-anthropic-key");
+  if (!key) return;
+  const model = localStorage.getItem("stinger-ai-model") || "claude-haiku-4-5-20251001";
+
+  const out = document.getElementById("ai-output");
+  const genBtn = document.getElementById("ai-gen-btn");
+  out.innerHTML = '<div class="ai-loading">Thinking with ' + esc(model.split("-").slice(0,3).join("-")) + '...</div>';
+  genBtn.disabled = true;
+
+  const system = `You are a Google dorking assistant for defensive security and bug-bounty research.
+
+Given a user's objective, output a SINGLE JSON object with exactly these fields:
+{
+  "name": "short, descriptive name (6 words max)",
+  "dork": "the Google dork query using standard operators",
+  "desc": "one-line description of what results will show",
+  "explanation": "2-3 sentence explanation: how the operators work, what you'll find, and any defender note"
+}
+
+Rules:
+- Use only standard Google operators: site:, inurl:, intitle:, intext:, filetype:, ext:, cache:, related:, info:, AROUND(), before:, after:, OR, -, "", *
+- Prefer precision over breadth; narrow queries with site: or filetype: when relevant
+- Never target specific named individuals (people stalking is prohibited)
+- Never craft queries intended to break into a specific named production system (that is not authorized research)
+- Generic reconnaissance patterns (find exposed X, find Y on .edu, find open Z buckets) are fine
+
+If the request asks for something clearly unethical (harassing a person, breaking into a named system you don't own, etc.), instead return:
+{ "refused": true, "reason": "brief reason" }
+
+Output ONLY the JSON. No markdown fences, no commentary.`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": key,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true"
+      },
+      body: JSON.stringify({
+        model,
+        max_tokens: 600,
+        system,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      out.innerHTML = `<div class="ai-refused"><strong>API error ${res.status}.</strong> ${esc(errText.slice(0, 400))}</div>`;
+      return;
+    }
+
+    const data = await res.json();
+    const text = data?.content?.[0]?.text?.trim() || "";
+    let parsed;
+    try {
+      const clean = text.replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "").trim();
+      parsed = JSON.parse(clean);
+    } catch {
+      out.innerHTML = `<div class="ai-refused"><strong>Could not parse model response.</strong><br><pre style="margin-top:8px;white-space:pre-wrap;font-size:11px">${esc(text)}</pre></div>`;
+      return;
+    }
+
+    if (parsed.refused) {
+      out.innerHTML = `<div class="ai-refused"><strong>Model refused.</strong> ${esc(parsed.reason || "No reason given.")}</div>`;
+      return;
+    }
+
+    const safeName = esc(parsed.name || "AI Dork");
+    const safeDork = esc(parsed.dork || "");
+    const safeDesc = esc(parsed.desc || "");
+    const safeExp = esc(parsed.explanation || "");
+
+    out.innerHTML = `<div class="ai-result">
+      <div class="ai-name">${safeName}</div>
+      <div class="ai-dork">${highlightDork(safeDork)}</div>
+      <div class="ai-exp"><strong style="color:var(--amber)">What it does:</strong> ${safeDesc}<br><br><strong style="color:var(--amber)">How it works:</strong> ${safeExp}</div>
+      <div class="ai-actions">
+        <button class="btn btn-primary btn-sm" onclick='useAiDork(${JSON.stringify(parsed).replace(/'/g,"&apos;")})'>Use this dork</button>
+        <button class="btn btn-ghost btn-sm" onclick='saveAiDork(${JSON.stringify(parsed).replace(/'/g,"&apos;")})'>Save to Custom</button>
+      </div>
+    </div>`;
+  } catch (e) {
+    out.innerHTML = `<div class="ai-refused"><strong>Request failed.</strong> ${esc(e.message)}. Check your key, model name, or network.</div>`;
+  } finally {
+    genBtn.disabled = false;
+  }
+}
+
+function useAiDork(t) {
+  loadTemplate(t.dork);
+  closeAiModal();
+}
+
+function saveAiDork(t) {
+  customTemplates.unshift({
+    cat: "custom",
+    name: t.name || "AI Dork",
+    dork: t.dork,
+    desc: t.desc || "",
+    exp: t.explanation || ""
+  });
+  customTemplates = customTemplates.slice(0, 50);
+  localStorage.setItem("stinger-custom", JSON.stringify(customTemplates));
+  renderSidebar();
+  if (activeCat === "custom" || activeCat === "all") renderTemplates();
+}
+
 renderSidebar();
 renderOperators();
 renderTemplates();
 renderHistory();
 document.addEventListener("keydown", e => {
   if (e.ctrlKey && e.key === "Enter") { e.preventDefault(); executeSearch(); }
+  if (e.key === "Escape") { closeAiModal(); closeSettingsModal(); }
 });
 </script>
 </body>
